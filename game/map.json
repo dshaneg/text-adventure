@@ -1,0 +1,51 @@
+{
+  "nodes": [{
+      "id": 0,
+      "name": "Start",
+      "description": "It is a dark and stormy night. You are very tired from a hard day's travel. A small keep lies to the south.",
+      "location": { "x": 1, "y": 0 }
+    },
+    {
+      "id": 1,
+      "name": "Keep Entry",
+      "description": "You are standing in the keep's entry. Low-burning braziers cast long shadows on the walls.",
+      "location": { "x": 1, "y": 1 }
+    },
+    {
+      "id": 2,
+      "name": "Great Hall",
+      "description": "You have entered the Great Hall of the keep. The room is dimly lit, but you see doors in all four directions.",
+      "location": { "x": 1, "y": 2 }
+    },
+    {
+      "id": 3,
+      "name": "Armory",
+      "description": "This small room serves as the armory for the keep.",
+      "location": { "x": 0, "y": 2 }
+    },
+    {
+      "id": 4,
+      "name": "Kitchen",
+      "description": "Nothing edible has been prepared here in weeks. You find nothing but rat droppings and broken furniture.",
+      "location": { "x": 2, "y": 2 }
+    },
+    {
+      "id": 5,
+      "name": "Treasure Room",
+      "description": "The walls are covered in rich tapestries and a large chest sits against the back wall of this room.",
+      "location": { "x": 1, "y": 3 }
+    }
+  ],
+  "arrows": [
+    { "tail": 0, "head": 1 },
+    { "tail": 1, "head": 0 },
+    { "tail": 1, "head": 2 },
+    { "tail": 2, "head": 1 },
+    { "tail": 2, "head": 3 },
+    { "tail": 3, "head": 2 },
+    { "tail": 2, "head": 4 },
+    { "tail": 4, "head": 2 },
+    { "tail": 2, "head": 5 },
+    { "tail": 5, "head": 2 }
+  ]
+}
