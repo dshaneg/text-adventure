@@ -2,37 +2,51 @@
   "nodes": [{
       "id": 0,
       "name": "Start",
-      "description": "It is a dark and stormy night. You are very tired from a hard day's travel. A small keep lies to the south.",
+      "description": [
+        "It is a dark and stormy night. You are very tired from a hard day's travel.",
+        "A small keep lies to the south."
+      ],
       "location": { "x": 1, "y": 0 }
     },
     {
       "id": 1,
       "name": "Keep Entry",
-      "description": "You are standing in the keep's entry. Low-burning braziers cast long shadows on the walls.",
+      "description": [
+        "You are standing in the keep's entry. Low-burning braziers cast long shadows on the walls.",
+        "To the south you see a cavernous room."
+      ],
       "location": { "x": 1, "y": 1 }
     },
     {
       "id": 2,
       "name": "Great Hall",
-      "description": "You have entered the Great Hall of the keep. The room is dimly lit, but you see doors in all four directions.",
+      "description": [
+        "You have entered the Great Hall of the keep. The room is dimly lit, but you see doors in all four directions.",
+        "A foul odor emanates from the room to the east."
+      ],
       "location": { "x": 1, "y": 2 }
     },
     {
       "id": 3,
       "name": "Armory",
-      "description": "This small room serves as the armory for the keep.",
+      "description": ["This small room serves as the armory for the keep."],
       "location": { "x": 0, "y": 2 }
     },
     {
       "id": 4,
       "name": "Kitchen",
-      "description": "Nothing edible has been prepared here in weeks. You find nothing but rat droppings and broken furniture.",
+      "description": [
+        "Nothing edible has been prepared here in weeks. There is a pile of rotten meat in a bucket on the floor.",
+        "You find nothing else but rat droppings and broken furniture."
+      ],
       "location": { "x": 2, "y": 2 }
     },
     {
       "id": 5,
       "name": "Treasure Room",
-      "description": "The walls are covered in rich tapestries and a large chest sits against the back wall of this room.",
+      "description": [
+        "The walls are covered in rich tapestries and a large chest sits against the back wall of this room."
+      ],
       "location": { "x": 1, "y": 3 }
     }
   ],
