@@ -13,8 +13,7 @@
       "id": 1,
       "name": "Dirt Road",
       "description": [
-        "It is a dark and stormy night. You are sore and tired from a hard day's travel,",
-        "standing at the end of a long dirt road. A small keep lies to the south."
+        "You are standing at the end of a long dirt road. A small, poorly maintained keep lies to the south."
       ],
       "location": { "x": 1, "y": 0, "z": 0 }
     },
