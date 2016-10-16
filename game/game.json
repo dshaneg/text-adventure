@@ -16,5 +16,13 @@
     "and could use some meat and mead. From the looks of the place you've just found,",
     "you think it unlikely that you'll get either food, or drink,",
     "or even rest for your weary bones."
+  ],
+  "help": [
+    "\nNavigate by typing a compass direction (<<north>>, <<south>>, <<east>>, or <<west>>), or <<up>> or <<down>>).",
+    "You can also use the first letter of the direction as a shortcut. The prompt gives you a short",
+    "description of where you are and in which directions you may move. The direction hints change",
+    "color based on whether you've already been to that place, and changes again when there's nothing",
+    "more to see in that direction.",
+    "\nTo leave the game, just type <<quit>> (or <<q>>)."
   ]
 }
