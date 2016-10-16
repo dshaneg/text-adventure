@@ -262,6 +262,22 @@
         "secret exit."
       ],
       "location": { "x": 2, "y": 3, "z": -1 }
+    },
+    {
+      "id": 39,
+      "name": "West Tower",
+      "description": [
+        "west tower."
+      ],
+      "location": { "x": 0, "y": 1, "z": 2 }
+    },
+    {
+      "id": 41,
+      "name": "East Tower",
+      "description": [
+        "east tower."
+      ],
+      "location": { "x": 2, "y": 1, "z": 2 }
     }
   ],
   "arrows": [
@@ -307,6 +323,10 @@
     { "tail": 22, "head": 23, "direction": "e" },
     { "tail": 23, "head": 22, "direction": "w" },
 
+    { "tail": 15, "head": 39, "direction": "u" },
+    { "tail": 39, "head": 15, "direction": "d" },
+    { "tail": 17, "head": 41, "direction": "u" },
+    { "tail": 41, "head": 17, "direction": "d" },
 
     { "tail": 24, "head": 25, "direction": "e" },
     { "tail": 25, "head": 24, "direction": "w" },
