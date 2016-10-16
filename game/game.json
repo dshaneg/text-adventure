@@ -1,5 +1,5 @@
 {
-  "welcome": [
+  "banner": [
     " _____         _",
     "|_   _|____  _| |_",
     "  | |/ _ \\ \\/ / __|",
@@ -10,5 +10,11 @@
     "        / _ \\ / _` \\ \\ / / _ \\ '_ \\| __| | | | '__/ _ \\",
     "       / ___ \\ (_| |\\ V /  __/ | | | |_| |_| | | |  __/",
     "      /_/   \\_\\__,_| \\_/ \\___|_| |_|\\__|\\__,_|_|  \\___|"
+  ],
+  "opening": [
+    "\nIt is a dark and stormy night. You are tired and sore from a hard day's travel,",
+    "and could use some meat and mead. From the looks of the place you've just found,",
+    "you think it unlikely that you'll get either food, or drink,",
+    "or even rest for your weary bones."
   ]
 }
