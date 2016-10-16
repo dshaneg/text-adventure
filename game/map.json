@@ -1,65 +1,387 @@
 {
-  "nodes": [{
+  "start": 1,
+  "nodes": [
+    {
       "id": 0,
+      "name": "Guard Shack",
+      "description": [
+        "guard shack."
+      ],
+      "location": { "x": 0, "y": 0, "z": 0 }
+    },
+    {
+      "id": 1,
       "name": "Dirt Road",
       "description": [
         "It is a dark and stormy night. You are sore and tired from a hard day's travel,",
         "standing at the end of a long dirt road. A small keep lies to the south."
       ],
-      "location": { "x": 1, "y": 0 }
+      "location": { "x": 1, "y": 0, "z": 0 }
     },
     {
-      "id": 1,
+      "id": 2,
+      "name": "Stable",
+      "description": [
+        "stable."
+      ],
+      "location": { "x": 2, "y": 0, "z": 0 }
+    },
+    {
+      "id": 3,
+      "name": "West Foyer",
+      "description": [
+        "west foyer."
+      ],
+      "location": { "x": 0, "y": 1, "z": 0 }
+    },
+    {
+      "id": 4,
       "name": "Keep Entry",
       "description": [
         "You are standing in the keep's entry. Low-burning braziers cast long shadows on the walls.",
         "To the south you see a cavernous room."
       ],
-      "location": { "x": 1, "y": 1 }
+      "location": { "x": 1, "y": 1, "z": 0 }
     },
     {
-      "id": 2,
+      "id": 5,
+      "name": "East Foyer",
+      "description": [
+        "east foyer."
+      ],
+      "location": { "x": 2, "y": 1, "z": 0 }
+    },
+    {
+      "id": 6,
+      "name": "Armory",
+      "description": ["This small room serves as the armory for the keep."],
+      "location": { "x": 0, "y": 2, "z": 0 }
+    },
+    {
+      "id": 7,
       "name": "Great Hall",
       "description": [
         "You have entered the Great Hall of the keep. The room is dimly lit, but you see doors in all four directions.",
         "A foul odor emanates from the room to the east."
       ],
-      "location": { "x": 1, "y": 2 }
+      "location": { "x": 1, "y": 2, "z": 0 }
     },
     {
-      "id": 3,
-      "name": "Armory",
-      "description": ["This small room serves as the armory for the keep."],
-      "location": { "x": 0, "y": 2 }
-    },
-    {
-      "id": 4,
+      "id": 8,
       "name": "Kitchen",
       "description": [
         "Nothing edible has been prepared here in weeks. There is a pile of rotten meat in a bucket on the floor.",
         "You find nothing else but rat droppings and broken furniture."
       ],
-      "location": { "x": 2, "y": 2 }
+      "location": { "x": 2, "y": 2, "z": 0 }
     },
     {
-      "id": 5,
+      "id": 9,
+      "name": "Dungeon Entrance",
+      "description": [
+        "dungeon entrance."
+      ],
+      "location": { "x": 0, "y": 3, "z": 0 }
+    },
+    {
+      "id": 10,
       "name": "Treasure Room",
       "description": [
         "The walls are covered in rich tapestries and a large chest sits against the back wall of this room."
       ],
-      "location": { "x": 1, "y": 3 }
+      "location": { "x": 1, "y": 3, "z": 0 }
+    },
+    {
+      "id": 11,
+      "name": "Pantry",
+      "description": [
+        "pantry."
+      ],
+      "location": { "x": 2, "y": 3, "z": 0 }
+    },
+
+
+    {
+      "id": 15,
+      "name": "West Landing",
+      "description": [
+        "west landing."
+      ],
+      "location": { "x": 0, "y": 1, "z": 1 }
+    },
+    {
+      "id": 16,
+      "name": "Catwalk",
+      "description": [
+        "catwalk."
+      ],
+      "location": { "x": 1, "y": 1, "z": 1 }
+    },
+    {
+      "id": 17,
+      "name": "East Landing",
+      "description": [
+        "east landing."
+      ],
+      "location": { "x": 2, "y": 1, "z": 1 }
+    },
+    {
+      "id": 18,
+      "name": "West Antechamber",
+      "description": [
+        "west antechamber."
+      ],
+      "location": { "x": 0, "y": 2, "z": 1 }
+    },
+    {
+      "id": 20,
+      "name": "East Antechamber",
+      "description": [
+        "east antechamber."
+      ],
+      "location": { "x": 2, "y": 2, "z": 1 }
+    },
+    {
+      "id": 21,
+      "name": "West Bedchamber",
+      "description": [
+        "west bedchamber."
+      ],
+      "location": { "x": 0, "y": 3, "z": 1 }
+    },
+    {
+      "id": 22,
+      "name": "Secret Chamber",
+      "description": [
+        "secret chamber."
+      ],
+      "location": { "x": 1, "y": 3, "z": 1 }
+    },
+    {
+      "id": 23,
+      "name": "East Bedchamber",
+      "description": [
+        "east bedchamber."
+      ],
+      "location": { "x": 2, "y": 3, "z": 1 }
+    },
+
+
+    {
+      "id": 24,
+      "name": "Cell C",
+      "description": [
+        "cell c."
+      ],
+      "location": { "x": 0, "y": 0, "z": -1 }
+    },
+    {
+      "id": 25,
+      "name": "Dark Hallway",
+      "description": [
+        "dark hallway."
+      ],
+      "location": { "x": 1, "y": 0, "z": -1 }
+    },
+    {
+      "id": 26,
+      "name": "Cell E",
+      "description": [
+        "cell e."
+      ],
+      "location": { "x": 2, "y": 0, "z": -1 }
+    },
+    {
+      "id": 27,
+      "name": "Cell B",
+      "description": [
+        "cell b."
+      ],
+      "location": { "x": 0, "y": 1, "z": -1 }
+    },
+    {
+      "id": 28,
+      "name": "Dark Hallway",
+      "description": [
+        "dark hallway."
+      ],
+      "location": { "x": 1, "y": 1, "z": -1 }
+    },
+    {
+      "id": 29,
+      "name": "Tormentor's Quarters",
+      "description": [
+        "tormentor's quarters."
+      ],
+      "location": { "x": 2, "y": 1, "z": -1 }
+    },
+    {
+      "id": 30,
+      "name": "Cell A",
+      "description": [
+        "cell a."
+      ],
+      "location": { "x": 0, "y": 2, "z": -1 }
+    },
+    {
+      "id": 31,
+      "name": "Dark Hallway",
+      "description": [
+        "dark hallway."
+      ],
+      "location": { "x": 1, "y": 2, "z": -1 }
+    },
+    {
+      "id": 32,
+      "name": "Torture Chamber",
+      "description": [
+        "torture chamber."
+      ],
+      "location": { "x": 2, "y": 2, "z": -1 }
+    },
+    {
+      "id": 33,
+      "name": "Jailer Station",
+      "description": [
+        "jailer station."
+      ],
+      "location": { "x": 0, "y": 3, "z": -1 }
+    },
+    {
+      "id": 34,
+      "name": "Dark Hallway",
+      "description": [
+        "dark hallway."
+      ],
+      "location": { "x": 1, "y": 3, "z": -1 }
+    },
+    {
+      "id": 35,
+      "name": "Secret Exit",
+      "description": [
+        "secret exit."
+      ],
+      "location": { "x": 2, "y": 3, "z": -1 }
+    },
+    {
+      "id": 39,
+      "name": "West Tower",
+      "description": [
+        "west tower."
+      ],
+      "location": { "x": 0, "y": 1, "z": 2 }
+    },
+    {
+      "id": 41,
+      "name": "East Tower",
+      "description": [
+        "east tower."
+      ],
+      "location": { "x": 2, "y": 1, "z": 2 }
     }
   ],
   "arrows": [
-    { "tail": 0, "head": 1, "direction": "s" },
-    { "tail": 1, "head": 0, "direction": "n" },
-    { "tail": 1, "head": 2, "direction": "s" },
-    { "tail": 2, "head": 1, "direction": "n" },
-    { "tail": 2, "head": 3, "direction": "w" },
-    { "tail": 3, "head": 2, "direction": "e" },
-    { "tail": 2, "head": 4, "direction": "e" },
-    { "tail": 4, "head": 2, "direction": "w" },
-    { "tail": 2, "head": 5, "direction": "s" },
-    { "tail": 5, "head": 2, "direction": "n" }
+    { "tail": 0, "head": 1, "direction": "e" },
+
+    { "tail": 1, "head": 4, "direction": "s" },
+    { "tail": 1, "head": 2, "direction": "e" },
+    { "tail": 1, "head": 0, "direction": "w" },
+
+    { "tail": 2, "head": 1, "direction": "w" },
+
+    { "tail": 3, "head": 4, "direction": "e" },
+    { "tail": 3, "head": 15, "direction": "u" },
+
+    { "tail": 4, "head": 1, "direction": "n" },
+    { "tail": 4, "head": 7, "direction": "s" },
+    { "tail": 4, "head": 5, "direction": "e" },
+    { "tail": 4, "head": 3, "direction": "w" },
+
+    { "tail": 5, "head": 4, "direction": "w" },
+    { "tail": 5, "head": 17, "direction": "u" },
+
+    { "tail": 6, "head": 7, "direction": "e" },
+
+    { "tail": 7, "head": 4, "direction": "n" },
+    { "tail": 7, "head": 10, "direction": "s" },
+    { "tail": 7, "head": 8, "direction": "e" },
+    { "tail": 7, "head": 6, "direction": "w" },
+
+    { "tail": 8, "head": 11, "direction": "s" },
+    { "tail": 8, "head": 7, "direction": "w" },
+
+    { "tail": 9, "head": 10, "direction": "e" },
+    { "tail": 9, "head": 33, "direction": "d" },
+
+    { "tail": 11, "head": 8, "direction": "n" },
+
+    { "tail": 10, "head": 7, "direction": "n" },
+    { "tail": 10, "head": 9, "direction": "w" },
+
+    { "tail": 15, "head": 18, "direction": "s" },
+    { "tail": 15, "head": 16, "direction": "e" },
+    { "tail": 15, "head": 39, "direction": "u" },
+    { "tail": 15, "head": 3, "direction": "d" },
+
+    { "tail": 16, "head": 17, "direction": "e" },
+    { "tail": 16, "head": 15, "direction": "w" },
+
+    { "tail": 17, "head": 20, "direction": "s" },
+    { "tail": 17, "head": 16, "direction": "w" },
+    { "tail": 17, "head": 41, "direction": "u" },
+    { "tail": 17, "head": 5, "direction": "d" },
+
+    { "tail": 18, "head": 15, "direction": "n" },
+    { "tail": 18, "head": 21, "direction": "s" },
+
+    { "tail": 20, "head": 17, "direction": "n" },
+    { "tail": 20, "head": 23, "direction": "s" },
+
+    { "tail": 21, "head": 18, "direction": "n" },
+
+    { "tail": 22, "head": 23, "direction": "e" },
+
+    { "tail": 23, "head": 20, "direction": "n" },
+    { "tail": 23, "head": 22, "direction": "w" },
+
+    { "tail": 24, "head": 25, "direction": "e" },
+
+    { "tail": 25, "head": 28, "direction": "s" },
+    { "tail": 25, "head": 26, "direction": "e" },
+    { "tail": 25, "head": 24, "direction": "w" },
+
+    { "tail": 26, "head": 25, "direction": "w" },
+
+    { "tail": 27, "head": 28, "direction": "e" },
+
+    { "tail": 28, "head": 25, "direction": "n" },
+    { "tail": 28, "head": 31, "direction": "s" },
+    { "tail": 28, "head": 29, "direction": "e" },
+    { "tail": 28, "head": 27, "direction": "w" },
+
+    { "tail": 29, "head": 32, "direction": "s" },
+    { "tail": 29, "head": 28, "direction": "w" },
+
+    { "tail": 30, "head": 31, "direction": "e" },
+
+    { "tail": 31, "head": 28, "direction": "n" },
+    { "tail": 31, "head": 34, "direction": "s" },
+    { "tail": 31, "head": 30, "direction": "w" },
+
+    { "tail": 32, "head": 29, "direction": "n" },
+    { "tail": 32, "head": 35, "direction": "s" },
+
+    { "tail": 33, "head": 34, "direction": "e" },
+    { "tail": 33, "head": 9, "direction": "u" },
+
+    { "tail": 34, "head": 31, "direction": "n" },
+    { "tail": 34, "head": 33, "direction": "w" },
+
+    { "tail": 35, "head": 32, "direction": "n" },
+    { "tail": 35, "head": 11, "direction": "u" },
+
+    { "tail": 39, "head": 15, "direction": "d" },
+
+    { "tail": 41, "head": 17, "direction": "d" }
   ]
 }
