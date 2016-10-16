@@ -166,6 +166,79 @@
       "location": { "x": 2, "y": 3, "z": 1 }
     },
 
+
+    {
+      "id": 24,
+      "name": "Cell C",
+      "description": [
+        "cell c."
+      ],
+      "location": { "x": 0, "y": 0, "z": -1 }
+    },
+    {
+      "id": 25,
+      "name": "Dark Hallway",
+      "description": [
+        "dark hallway."
+      ],
+      "location": { "x": 1, "y": 0, "z": -1 }
+    },
+    {
+      "id": 26,
+      "name": "Cell E",
+      "description": [
+        "cell e."
+      ],
+      "location": { "x": 2, "y": 0, "z": -1 }
+    },
+    {
+      "id": 27,
+      "name": "Cell B",
+      "description": [
+        "cell b."
+      ],
+      "location": { "x": 0, "y": 1, "z": -1 }
+    },
+    {
+      "id": 28,
+      "name": "Dark Hallway",
+      "description": [
+        "dark hallway."
+      ],
+      "location": { "x": 1, "y": 1, "z": -1 }
+    },
+    {
+      "id": 29,
+      "name": "Tormentor's Quarters",
+      "description": [
+        "tormentor's quarters."
+      ],
+      "location": { "x": 2, "y": 1, "z": -1 }
+    },
+    {
+      "id": 30,
+      "name": "Cell A",
+      "description": [
+        "cell a."
+      ],
+      "location": { "x": 0, "y": 2, "z": -1 }
+    },
+    {
+      "id": 31,
+      "name": "Dark Hallway",
+      "description": [
+        "dark hallway."
+      ],
+      "location": { "x": 1, "y": 2, "z": -1 }
+    },
+    {
+      "id": 32,
+      "name": "Torture Chamber",
+      "description": [
+        "torture chamber."
+      ],
+      "location": { "x": 2, "y": 2, "z": -1 }
+    },
     {
       "id": 33,
       "name": "Jailer Station",
@@ -173,8 +246,23 @@
         "jailer station."
       ],
       "location": { "x": 0, "y": 3, "z": -1 }
+    },
+    {
+      "id": 34,
+      "name": "Dark Hallway",
+      "description": [
+        "dark hallway."
+      ],
+      "location": { "x": 1, "y": 3, "z": -1 }
+    },
+    {
+      "id": 35,
+      "name": "Secret Exit",
+      "description": [
+        "secret exit."
+      ],
+      "location": { "x": 2, "y": 3, "z": -1 }
     }
-
   ],
   "arrows": [
     { "tail": 0, "head": 1, "direction": "e" },
@@ -220,6 +308,29 @@
     { "tail": 23, "head": 22, "direction": "w" },
 
 
+    { "tail": 24, "head": 25, "direction": "e" },
+    { "tail": 25, "head": 24, "direction": "w" },
+    { "tail": 25, "head": 26, "direction": "e" },
+    { "tail": 26, "head": 25, "direction": "w" },
+    { "tail": 25, "head": 28, "direction": "s" },
+    { "tail": 28, "head": 25, "direction": "n" },
+    { "tail": 27, "head": 28, "direction": "e" },
+    { "tail": 28, "head": 27, "direction": "w" },
+    { "tail": 28, "head": 29, "direction": "e" },
+    { "tail": 29, "head": 28, "direction": "w" },
+    { "tail": 28, "head": 31, "direction": "s" },
+    { "tail": 31, "head": 28, "direction": "n" },
+    { "tail": 29, "head": 32, "direction": "s" },
+    { "tail": 32, "head": 29, "direction": "n" },
+    { "tail": 30, "head": 31, "direction": "e" },
+    { "tail": 31, "head": 30, "direction": "w" },
+    { "tail": 31, "head": 34, "direction": "s" },
+    { "tail": 34, "head": 31, "direction": "n" },
+    { "tail": 32, "head": 35, "direction": "s" },
+    { "tail": 35, "head": 32, "direction": "n" },
+    { "tail": 33, "head": 34, "direction": "e" },
+    { "tail": 34, "head": 33, "direction": "w" },
+    { "tail": 35, "head": 11, "direction": "u" },
     { "tail": 9, "head": 33, "direction": "d" },
     { "tail": 33, "head": 9, "direction": "u" }
   ]
