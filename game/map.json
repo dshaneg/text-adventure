@@ -98,7 +98,83 @@
         "pantry."
       ],
       "location": { "x": 2, "y": 3, "z": 0 }
+    },
+
+
+    {
+      "id": 15,
+      "name": "West Landing",
+      "description": [
+        "west landing."
+      ],
+      "location": { "x": 0, "y": 1, "z": 1 }
+    },
+    {
+      "id": 16,
+      "name": "Catwalk",
+      "description": [
+        "catwalk."
+      ],
+      "location": { "x": 1, "y": 1, "z": 1 }
+    },
+    {
+      "id": 17,
+      "name": "East Landing",
+      "description": [
+        "east landing."
+      ],
+      "location": { "x": 2, "y": 1, "z": 1 }
+    },
+    {
+      "id": 18,
+      "name": "West Antechamber",
+      "description": [
+        "west antechamber."
+      ],
+      "location": { "x": 0, "y": 2, "z": 1 }
+    },
+    {
+      "id": 20,
+      "name": "East Antechamber",
+      "description": [
+        "east antechamber."
+      ],
+      "location": { "x": 2, "y": 2, "z": 1 }
+    },
+    {
+      "id": 21,
+      "name": "West Bedchamber",
+      "description": [
+        "west bedchamber."
+      ],
+      "location": { "x": 0, "y": 3, "z": 1 }
+    },
+    {
+      "id": 22,
+      "name": "Secret Chamber",
+      "description": [
+        "secret chamber."
+      ],
+      "location": { "x": 1, "y": 3, "z": 1 }
+    },
+    {
+      "id": 23,
+      "name": "East Bedchamber",
+      "description": [
+        "east bedchamber."
+      ],
+      "location": { "x": 2, "y": 3, "z": 1 }
+    },
+
+    {
+      "id": 33,
+      "name": "Jailer Station",
+      "description": [
+        "jailer station."
+      ],
+      "location": { "x": 0, "y": 3, "z": -1 }
     }
+
   ],
   "arrows": [
     { "tail": 0, "head": 1, "direction": "e" },
@@ -122,6 +198,29 @@
     { "tail": 7, "head": 10, "direction": "s" },
     { "tail": 10, "head": 7, "direction": "n" },
     { "tail": 9, "head": 10, "direction": "e" },
-    { "tail": 10, "head": 9, "direction": "w" }
+    { "tail": 10, "head": 9, "direction": "w" },
+
+    { "tail": 3, "head": 15, "direction": "u" },
+    { "tail": 15, "head": 3, "direction": "d" },
+    { "tail": 15, "head": 16, "direction": "e" },
+    { "tail": 16, "head": 15, "direction": "w" },
+    { "tail": 15, "head": 18, "direction": "s" },
+    { "tail": 18, "head": 15, "direction": "n" },
+    { "tail": 16, "head": 17, "direction": "e" },
+    { "tail": 17, "head": 16, "direction": "w" },
+    { "tail": 5, "head": 17, "direction": "u" },
+    { "tail": 17, "head": 5, "direction": "d" },
+    { "tail": 17, "head": 20, "direction": "s" },
+    { "tail": 20, "head": 17, "direction": "n" },
+    { "tail": 18, "head": 21, "direction": "s" },
+    { "tail": 21, "head": 18, "direction": "n" },
+    { "tail": 20, "head": 23, "direction": "s" },
+    { "tail": 23, "head": 20, "direction": "n" },
+    { "tail": 22, "head": 23, "direction": "e" },
+    { "tail": 23, "head": 22, "direction": "w" },
+
+
+    { "tail": 9, "head": 33, "direction": "d" },
+    { "tail": 33, "head": 9, "direction": "u" }
   ]
 }
