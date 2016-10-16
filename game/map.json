@@ -3,7 +3,7 @@
       "id": 0,
       "name": "Dirt Road",
       "description": [
-        "It is a dark and stormy night. You are very tired from a hard day's travel,",
+        "It is a dark and stormy night. You are sore and tired from a hard day's travel,",
         "standing at the end of a long dirt road. A small keep lies to the south."
       ],
       "location": { "x": 1, "y": 0 }
@@ -51,15 +51,15 @@
     }
   ],
   "arrows": [
-    { "tail": 0, "head": 1 },
-    { "tail": 1, "head": 0 },
-    { "tail": 1, "head": 2 },
-    { "tail": 2, "head": 1 },
-    { "tail": 2, "head": 3 },
-    { "tail": 3, "head": 2 },
-    { "tail": 2, "head": 4 },
-    { "tail": 4, "head": 2 },
-    { "tail": 2, "head": 5 },
-    { "tail": 5, "head": 2 }
+    { "tail": 0, "head": 1, "direction": "s" },
+    { "tail": 1, "head": 0, "direction": "n" },
+    { "tail": 1, "head": 2, "direction": "s" },
+    { "tail": 2, "head": 1, "direction": "n" },
+    { "tail": 2, "head": 3, "direction": "w" },
+    { "tail": 3, "head": 2, "direction": "e" },
+    { "tail": 2, "head": 4, "direction": "e" },
+    { "tail": 4, "head": 2, "direction": "w" },
+    { "tail": 2, "head": 5, "direction": "s" },
+    { "tail": 5, "head": 2, "direction": "n" }
   ]
 }
