@@ -1,10 +1,10 @@
 {
   "nodes": [{
       "id": 0,
-      "name": "Start",
+      "name": "Dirt Road",
       "description": [
-        "It is a dark and stormy night. You are very tired from a hard day's travel.",
-        "A small keep lies to the south."
+        "It is a dark and stormy night. You are very tired from a hard day's travel,",
+        "standing at the end of a long dirt road. A small keep lies to the south."
       ],
       "location": { "x": 1, "y": 0 }
     },
