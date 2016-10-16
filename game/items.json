@@ -1,0 +1,64 @@
+[
+  {
+    "id": 1000,
+    "type": "weapon",
+    "subtype": "dagger",
+    "name": "broken dagger",
+    "description": [
+      "It used to be a so-so blade, but it has been abused and ill taken care of.",
+      "YOu can use it as a last resort, but your fists might be more effective."
+    ]
+  },
+  {
+    "id": 1001,
+    "type": "weapon",
+    "subtype": "dagger",
+    "name": "notched dagger",
+    "description": [
+      "A plain, working-man's dagger with a worn leather-wrapped handle. It has mostly been used",
+      "to cut meat at the dining boards, but can slice a man's throat at need.",
+      "It needs to spend some quality time with a whetstone..."
+    ]
+  },
+  {
+    "id": 1002,
+    "type": "weapon",
+    "subtype": "longsword",
+    "name": "excaliboar",
+    "description": [
+      "This sword was forged by a true master. It bears a family crest on the hilt--a rampaging boar",
+      "on an orange field bordered with gold. In the hands of a skilled warrior, this sword will",
+      "bring its wielder much honor and glory, or much gold if he is less skilled and just sells it."
+    ]
+  },
+  {
+    "id": 2000,
+    "type": "armor",
+    "subtype": "helm",
+    "class": "leather",
+    "name": "leather cap",
+    "description": [
+      "This ragged piece of boiled leather was custom-fit to a person with a very large head."
+    ]
+  },
+  {
+    "id": 3000,
+    "type": "consumable",
+    "subtype": "potion",
+    "class": "health",
+    "name": "potion of minor healing",
+    "description": [
+      "A small flask containing a murky red liquid. It smells awful, but the label reads",
+      "\"Heals minor cuts and abrasions.\" Don't expect it to work miracles."
+    ]
+  },
+  {
+    "id": 4000,
+    "type": "general",
+    "subtype": "key",
+    "name": "large gold skeleton key",
+    "description": [
+      "An ornately fashioned skeleton key wrought from iron but plated in gold."
+    ]
+  }
+]
