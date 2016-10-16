@@ -1,65 +1,127 @@
 {
-  "nodes": [{
+  "start": 1,
+  "nodes": [
+    {
       "id": 0,
+      "name": "Guard Shack",
+      "description": [
+        "guard shack."
+      ],
+      "location": { "x": 0, "y": 0, "z": 0 }
+    },
+    {
+      "id": 1,
       "name": "Dirt Road",
       "description": [
         "It is a dark and stormy night. You are sore and tired from a hard day's travel,",
         "standing at the end of a long dirt road. A small keep lies to the south."
       ],
-      "location": { "x": 1, "y": 0 }
+      "location": { "x": 1, "y": 0, "z": 0 }
     },
     {
-      "id": 1,
+      "id": 2,
+      "name": "Stable",
+      "description": [
+        "stable."
+      ],
+      "location": { "x": 2, "y": 0, "z": 0 }
+    },
+    {
+      "id": 3,
+      "name": "West Foyer",
+      "description": [
+        "west foyer."
+      ],
+      "location": { "x": 0, "y": 1, "z": 0 }
+    },
+    {
+      "id": 4,
       "name": "Keep Entry",
       "description": [
         "You are standing in the keep's entry. Low-burning braziers cast long shadows on the walls.",
         "To the south you see a cavernous room."
       ],
-      "location": { "x": 1, "y": 1 }
+      "location": { "x": 1, "y": 1, "z": 0 }
     },
     {
-      "id": 2,
+      "id": 5,
+      "name": "East Foyer",
+      "description": [
+        "east foyer."
+      ],
+      "location": { "x": 2, "y": 1, "z": 0 }
+    },
+    {
+      "id": 6,
+      "name": "Armory",
+      "description": ["This small room serves as the armory for the keep."],
+      "location": { "x": 0, "y": 2, "z": 0 }
+    },
+    {
+      "id": 7,
       "name": "Great Hall",
       "description": [
         "You have entered the Great Hall of the keep. The room is dimly lit, but you see doors in all four directions.",
         "A foul odor emanates from the room to the east."
       ],
-      "location": { "x": 1, "y": 2 }
+      "location": { "x": 1, "y": 2, "z": 0 }
     },
     {
-      "id": 3,
-      "name": "Armory",
-      "description": ["This small room serves as the armory for the keep."],
-      "location": { "x": 0, "y": 2 }
-    },
-    {
-      "id": 4,
+      "id": 8,
       "name": "Kitchen",
       "description": [
         "Nothing edible has been prepared here in weeks. There is a pile of rotten meat in a bucket on the floor.",
         "You find nothing else but rat droppings and broken furniture."
       ],
-      "location": { "x": 2, "y": 2 }
+      "location": { "x": 2, "y": 2, "z": 0 }
     },
     {
-      "id": 5,
+      "id": 9,
+      "name": "Dungeon Entrance",
+      "description": [
+        "dungeon entrance."
+      ],
+      "location": { "x": 0, "y": 3, "z": 0 }
+    },
+    {
+      "id": 10,
       "name": "Treasure Room",
       "description": [
         "The walls are covered in rich tapestries and a large chest sits against the back wall of this room."
       ],
-      "location": { "x": 1, "y": 3 }
+      "location": { "x": 1, "y": 3, "z": 0 }
+    },
+    {
+      "id": 11,
+      "name": "Pantry",
+      "description": [
+        "pantry."
+      ],
+      "location": { "x": 2, "y": 3, "z": 0 }
     }
   ],
   "arrows": [
-    { "tail": 0, "head": 1, "direction": "s" },
-    { "tail": 1, "head": 0, "direction": "n" },
-    { "tail": 1, "head": 2, "direction": "s" },
-    { "tail": 2, "head": 1, "direction": "n" },
-    { "tail": 2, "head": 3, "direction": "w" },
-    { "tail": 3, "head": 2, "direction": "e" },
-    { "tail": 2, "head": 4, "direction": "e" },
-    { "tail": 4, "head": 2, "direction": "w" },
-    { "tail": 2, "head": 5, "direction": "s" },
-    { "tail": 5, "head": 2, "direction": "n" }
+    { "tail": 0, "head": 1, "direction": "e" },
+    { "tail": 1, "head": 0, "direction": "w" },
+    { "tail": 1, "head": 2, "direction": "e" },
+    { "tail": 2, "head": 1, "direction": "w" },
+    { "tail": 1, "head": 4, "direction": "s" },
+    { "tail": 4, "head": 1, "direction": "n" },
+    { "tail": 3, "head": 4, "direction": "e" },
+    { "tail": 4, "head": 3, "direction": "w" },
+    { "tail": 4, "head": 5, "direction": "e" },
+    { "tail": 5, "head": 4, "direction": "w" },
+    { "tail": 4, "head": 7, "direction": "s" },
+    { "tail": 7, "head": 4, "direction": "n" },
+    { "tail": 6, "head": 7, "direction": "e" },
+    { "tail": 7, "head": 6, "direction": "w" },
+    { "tail": 7, "head": 8, "direction": "e" },
+    { "tail": 8, "head": 7, "direction": "w" },
+    { "tail": 8, "head": 11, "direction": "s" },
+    { "tail": 11, "head": 8, "direction": "n" },
+    { "tail": 7, "head": 10, "direction": "s" },
+    { "tail": 10, "head": 7, "direction": "n" },
+    { "tail": 9, "head": 10, "direction": "e" },
+    { "tail": 10, "head": 9, "direction": "w" }
   ]
 }
