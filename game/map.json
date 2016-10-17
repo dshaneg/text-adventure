@@ -1,7 +1,6 @@
 {
   "start": 1,
-  "nodes": [
-    {
+  "nodes": [{
       "id": 0,
       "name": "Guard Shack",
       "description": [
@@ -84,9 +83,9 @@
     },
     {
       "id": 10,
-      "name": "Treasure Room",
+      "name": "Apothecary's Lab",
       "description": [
-        "The walls are covered in rich tapestries and a large chest sits against the back wall of this room."
+        "The walls are covered in mold and a large table covered in bottles and jars sits against the back wall of this room."
       ],
       "location": { "x": 1, "y": 3, "z": 0 }
     },
