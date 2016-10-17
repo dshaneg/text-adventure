@@ -2,7 +2,7 @@
   "startSet": [
     { "id": 1001, "count": 1, "equip": true },
     { "id": 2000, "count": 1, "equip": true },
-    { "id": 3000, "count": 1 }
+    { "id": 3000, "count": 3 }
   ],
   "items": [{
     "id": 1000,
