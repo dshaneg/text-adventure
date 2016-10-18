@@ -47,7 +47,7 @@
     "type": "consumable",
     "subtype": "potion",
     "class": "health",
-    "name": "potion of minor healing",
+    "name": "minor healing potion",
     "description": [
       "A small flask containing a murky red liquid. It smells awful, but the label reads",
       "\"Heals minor cuts and abrasions.\" Don't expect it to work miracles."
