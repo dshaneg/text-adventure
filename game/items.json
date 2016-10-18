@@ -53,6 +53,15 @@
       "\"Heals minor cuts and abrasions.\" Don't expect it to work miracles."
     ]
   }, {
+    "id": 3001,
+    "type": "consumable",
+    "subtype": "drink",
+    "class": "alcohol",
+    "name": "old bottle of wine",
+    "description": [
+      "A dusty bottle of summer wine. It has never been opened"
+    ]
+  }, {
     "id": 4000,
     "type": "general",
     "subtype": "key",
