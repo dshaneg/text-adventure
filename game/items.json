@@ -29,7 +29,8 @@
       "id": 1002,
       "type": "weapon",
       "subtype": "longsword",
-      "name": "excaliboar",
+      "isProperNoun": true,
+      "name": "Excaliboar",
       "description": [
         "This sword was forged by a true master bladsmith. It bears a family crest on the hilt--a rampaging boar",
         "on an orange field bordered with gold. In the hands of a skilled warrior, this sword will",
