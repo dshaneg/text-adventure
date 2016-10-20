@@ -5,69 +5,91 @@
     { "id": 3000, "count": 3 }
   ],
   "items": [{
-    "id": 1000,
-    "type": "weapon",
-    "subtype": "dagger",
-    "name": "broken dagger",
-    "description": [
-      "It used to be a so-so blade, but it has been abused and neglected.",
-      "You might make use of it in a pinch, but your fists would likely be more effective."
-    ]
-  }, {
-    "id": 1001,
-    "type": "weapon",
-    "subtype": "dagger",
-    "name": "notched dagger",
-    "description": [
-      "A plain, working-man's dagger with a worn leather-wrapped handle. It has mostly been used",
-      "to cut meat at the dining boards, but can slice a man's throat if the need arises.",
-      "However, it could do with some quality time on the whetstone..."
-    ]
-  }, {
-    "id": 1002,
-    "type": "weapon",
-    "subtype": "longsword",
-    "name": "excaliboar",
-    "description": [
-      "This sword was forged by a true master bladsmith. It bears a family crest on the hilt--a rampaging boar",
-      "on an orange field bordered with gold. In the hands of a skilled warrior, this sword will",
-      "bring its wielder much honor and glory, or much gold if he is less skilled and just sells it."
-    ]
-  }, {
-    "id": 2000,
-    "type": "armor",
-    "subtype": "helm",
-    "class": "leather",
-    "name": "leather cap",
-    "description": [
-      "This ragged piece of boiled leather was custom-fit to a person with a very large head."
-    ]
-  }, {
-    "id": 3000,
-    "type": "consumable",
-    "subtype": "potion",
-    "class": "health",
-    "name": "minor healing potion",
-    "description": [
-      "A small flask containing a murky red liquid. It smells awful, but the label reads",
-      "\"Heals minor cuts and abrasions.\" Don't expect it to work miracles."
-    ]
-  }, {
-    "id": 3001,
-    "type": "consumable",
-    "subtype": "drink",
-    "class": "alcohol",
-    "name": "old bottle of wine",
-    "description": [
-      "A dusty bottle of summer wine. It has never been opened"
-    ]
-  }, {
-    "id": 4000,
-    "type": "general",
-    "subtype": "key",
-    "name": "large gold skeleton key",
-    "description": [
-      "An ornately fashioned skeleton key wrought from iron but plated in gold."
-    ]
-  }]
+      "id": 1000,
+      "type": "weapon",
+      "subtype": "dagger",
+      "name": "broken dagger",
+      "description": [
+        "It used to be a so-so blade, but it has been abused and neglected.",
+        "You might make use of it in a pinch, but your fists would likely be more effective."
+      ]
+    },
+    {
+      "id": 1001,
+      "type": "weapon",
+      "subtype": "dagger",
+      "name": "notched dagger",
+      "description": [
+        "A plain, working-man's dagger with a worn leather-wrapped handle. It has mostly been used",
+        "to cut meat at the dining boards, but can slice a man's throat if the need arises.",
+        "However, it could do with some quality time on the whetstone..."
+      ]
+    },
+    {
+      "id": 1002,
+      "type": "weapon",
+      "subtype": "longsword",
+      "isProperNoun": true,
+      "name": "Excaliboar",
+      "description": [
+        "This sword was forged by a true master bladsmith. It bears a family crest on the hilt--a rampaging boar",
+        "on an orange field bordered with gold. In the hands of a skilled warrior, this sword will",
+        "bring its wielder much honor and glory, or much gold if he is less skilled and just sells it."
+      ]
+    },
+    {
+      "id": 1003,
+      "type": "weapon",
+      "subtype": "mace",
+      "name": "heavy mace",
+      "suffix": "of folly",
+      "description": [
+        "This sword was forged by a true master bladsmith. It bears a family crest on the hilt--a rampaging boar",
+        "on an orange field bordered with gold. In the hands of a skilled warrior, this sword will",
+        "bring its wielder much honor and glory, or much gold if he is less skilled and just sells it."
+      ]
+    },
+    {
+      "id": 2000,
+      "type": "armor",
+      "subtype": "helm",
+      "class": "leather",
+      "name": "leather cap",
+      "description": [
+        "This ragged piece of boiled leather was custom-fit to a person with a very large head."
+      ]
+    },
+    {
+      "id": 3000,
+      "type": "consumable",
+      "subtype": "potion",
+      "class": "health",
+      "name": "potion",
+      "suffix": "of minor healing",
+      "description": [
+        "A small flask containing a murky red liquid. It smells awful, but the label reads",
+        "\"Heals minor cuts and abrasions.\" Don't expect it to work miracles."
+      ]
+    },
+    {
+      "id": 3001,
+      "type": "consumable",
+      "subtype": "drink",
+      "class": "alcohol",
+      "name": "old bottle",
+      "suffix": "of wine",
+      "description": [
+        "A dusty bottle of summer wine. It has never been opened"
+      ]
+    },
+    {
+      "id": 4000,
+      "type": "general",
+      "subtype": "key",
+      "name": "large gold skeleton key",
+      "description": [
+        "An ornately fashioned skeleton key wrought from iron but plated in gold."
+      ]
+    }
+  ]
 }
