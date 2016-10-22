@@ -81,6 +81,8 @@ Queries
 
 Events
 
+* game.stop-requested
+* game.stopped
 * player.location.moved
 * player.location.move-blocked
 * player.location.teleported
