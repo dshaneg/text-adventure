@@ -50,3 +50,36 @@ to run the game.
 
 I'm using Visual Studio Code as my editor, so you'll notice some VSC-specific files sprinkled in.
 Also, I'm using a fair amount of ES6 syntax, so check your node version if you run into problems.
+
+## design
+
+The original idea was to make the game engine an EventEmitter and the client(text-engine) would respond to events and submit commands via parsers.
+Command handlers would respond to commands, updating the game state and raising events using the game engine.
+
+The current thought is that I'll use the Postal npm package, which provides an in-memory message bus. Now I can decouple all the things. The game state
+objects, as well as the client(text-engine) respond to events published by the command handlers. Everyone knows about the message bus but nothing else.
+
+The contracts of the application now come down to commands, queries, and events, which are each published
+in a different postal channel.
+
+Commands
+
+* game.start
+* game.stop
+* player.move
+* player.teleport
+
+Queries (need to reply on a new channel)
+
+* player.location
+* player.inventory.current
+* player.inventory.equipped
+
+Events
+
+* player.location.moved
+* player.location.teleported
+* player.location.blocked
+* player.inventory.add
+* error
+
