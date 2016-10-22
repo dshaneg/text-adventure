@@ -68,8 +68,8 @@ Commands
 * game.stop
 * player.location.move
 * player.location.teleport
-* player.inventory.add-item
-* player.inventory.equip-item
+* player.inventory.add
+* player.inventory.equip
 
 Queries (need to reply on a new channel)
 
@@ -82,7 +82,7 @@ Events
 * player.location.moved
 * player.location.move-blocked
 * player.location.teleported
-* player.inventory.item-added
-* player.inventory.item-equipped
+* player.inventory.added
+* player.inventory.equipped
 * error
 
