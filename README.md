@@ -71,6 +71,7 @@ Commands
 * player.inventory.add
 * player.inventory.equip-item
 * item.conjure
+* help
 
 Queries
 
@@ -86,5 +87,6 @@ Events
 * player.inventory.added
 * player.inventory.item-equipped
 * item.conjured
+* help-requested
 * error
 
