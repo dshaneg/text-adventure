@@ -70,6 +70,7 @@ Commands
 * player.location.teleport
 * player.inventory.add
 * player.inventory.equip-item
+* player.inventory.list
 * item.conjure
 * help
 
@@ -88,7 +89,7 @@ Events
 * player.location.teleported
 * player.inventory.added
 * player.inventory.item-equipped
+* player.inventory.list-requested
 * item.conjured
-* help-requested
+* game.help-requested
 * error
-
