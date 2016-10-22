@@ -69,10 +69,10 @@ Commands
 * player.location.move
 * player.location.teleport
 * player.inventory.add
-* player.inventory.equip
+* player.inventory.equip-item
 * item.conjure
 
-Queries (need to reply on a new channel)
+Queries
 
 * player.location
 * player.inventory.current
@@ -84,6 +84,7 @@ Events
 * player.location.move-blocked
 * player.location.teleported
 * player.inventory.added
-* player.inventory.equipped
+* player.inventory.item-equipped
+* item.conjured
 * error
 
