@@ -70,6 +70,7 @@ Commands
 * player.location.teleport
 * player.inventory.add
 * player.inventory.equip
+* item.conjure
 
 Queries (need to reply on a new channel)
 
