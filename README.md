@@ -62,6 +62,8 @@ objects, as well as the client(text-engine) respond to events published by the c
 The contracts of the application now come down to commands, queries, and events, which are each published
 in a different postal channel.
 
+### game engine channels
+
 Commands
 
 * game.start
@@ -93,3 +95,15 @@ Events
 * item.conjured
 * game.help-requested
 * error
+
+### console client channels
+
+Commands
+
+* style.list
+* style.apply
+
+Events
+
+* style.applied
+* style.list-requested
