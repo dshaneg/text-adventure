@@ -32,19 +32,41 @@ and the best way to learn is by trying and failing and trying again.
 
 ## setup
 
-To get started, just hit the command shell with
+To get started, just hit the command shell with...
 
 ```shell
 npm install
 ```
 
-to get things set up and then
+...to get things set up and then...
 
 ```shell
 node lib/index
 ```
 
-to run the game.
+...to run the game. I've added a debugging listener that will spit out all of the events it sees
+to the console. To turn it on use the debug flag.
+
+```shell
+node lib/index --debug
+```
+
+## developer (cheat) mode
+
+In the course of developing features, I found it useful to add cheats to the game that let the developer
+set up a situation to be tested while the game is running. To enable dev mode when starting the game,
+use the dev flag.
+
+```sh
+node lib/index --dev
+```
+
+If the flag is on, the game will respond to additional commands:
+
+```sh
+conjureitem {item-id} // adds the item to your inventory. the shortcut is "ci"
+teleport {map-node-id} // sets your current location to the given map node
+```
 
 ## development environment
 
