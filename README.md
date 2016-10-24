@@ -88,6 +88,7 @@ in a different postal channel.
 
 Commands
 
+* game.create
 * game.start
 * game.stop
 * player.location.move
@@ -106,8 +107,11 @@ Queries
 
 Events
 
+* game.created
+* game.started
 * game.stop-requested
 * game.stopped
+* game.help-requested
 * player.location.moved
 * player.location.move-blocked
 * player.location.teleported
@@ -115,7 +119,6 @@ Events
 * player.inventory.item-equipped
 * player.inventory.list-requested
 * item.conjured
-* game.help-requested
 * error
 
 ### console client channels
