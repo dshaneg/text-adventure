@@ -1,0 +1,14 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "outDir": "lib",
+    "target": "es6",
+    "module": "commonjs",
+    "declaration": false,
+    "noImplicitAny": true,
+    "removeComments": false,
+    "types": [
+      "node"
+    ]
+  }
+}
