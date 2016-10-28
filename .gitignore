@@ -3,6 +3,9 @@ logs
 *.log
 npm-debug.log*
 
+# generated javascript files
+lib
+
 # Runtime data
 pids
 *.pid
