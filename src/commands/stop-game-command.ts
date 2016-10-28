@@ -19,7 +19,7 @@ export class StopGameCommand implements Command {
   }
 
   public topic: string;
-  public data: { sessionToken: string, force: boolean }
+  public data: { sessionToken: string, force: boolean };
 
   static get topic() {
     return topic;

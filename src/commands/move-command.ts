@@ -26,7 +26,7 @@ export class MoveCommand implements Command {
   }
 
   public topic: string;
-  public data: { sessionToken: string, direction: string }
+  public data: { sessionToken: string, direction: string };
 
   static get topic() {
     return topic;

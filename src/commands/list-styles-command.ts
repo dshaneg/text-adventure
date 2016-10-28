@@ -24,7 +24,7 @@ export class ListStylesCommand implements Command {
   }
 
   public topic: string;
-  public data: { sessionToken: string }
+  public data: { sessionToken: string };
 
   static get topic() {
     return topic;

@@ -18,7 +18,7 @@ export class ApplyStyleCommand implements Command {
   }
 
   public topic: string;
-  public data: {sessionToken: string, styleName: string}
+  public data: { sessionToken: string, styleName: string };
 
   static get topic() {
     return topic;

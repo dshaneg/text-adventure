@@ -2,5 +2,5 @@
 
 export interface Command {
   topic: string;
-  data: { sessionToken?: string }
+  data: { sessionToken?: string };
 }

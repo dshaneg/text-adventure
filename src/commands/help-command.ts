@@ -17,7 +17,7 @@ export class HelpCommand implements Command {
   }
 
   public topic: string;
-  public data: { sessionToken: string }
+  public data: { sessionToken: string };
 
   static get topic() {
     return topic;

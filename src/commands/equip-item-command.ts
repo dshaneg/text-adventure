@@ -20,7 +20,7 @@ export class EquipItemCommand implements Command {
   }
 
   public topic: string;
-  public data: { sessionToken: string, item: any }
+  public data: { sessionToken: string, item: any };
 
   static get topic() {
     return topic;

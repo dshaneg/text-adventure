@@ -5,6 +5,6 @@
   "eslint.enable": false,
   "files.exclude": {
     "**/.git": true,
-    "lib/**/*.js": true
+    "lib": true
   }
 }
