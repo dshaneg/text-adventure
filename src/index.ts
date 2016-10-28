@@ -2,10 +2,10 @@
 
 const getopt = require('node-getopt');
 
-const TextEngine = require('./text-engine');
+import { TextEngine } from './text-engine';
 
-const DebugEventLogger = require('./debug-event-logger');
-const style = require('./style');
+import { DebugEventLogger } from './debug-event-logger';
+import { style } from './style';
 
 const opt = getopt.create([
   ['d', 'debug', 'turn on debug output'],
@@ -20,16 +20,16 @@ if (opt.options.debug) {
 }
 
 // command parsers
-const MoveParser = require('./parsers/move-parser');
-const ListInventoryParser = require('./parsers/list-inventory-parser');
-const ExitParser = require('./parsers/exit-parser');
-const HelpParser = require('./parsers/help-parser');
-const ListStylesParser = require('./parsers/list-styles-parser');
-const ApplyStyleParser = require('./parsers/apply-style-parser');
+import { MoveParser } from './parsers/move-parser';
+import { ListInventoryParser } from './parsers/list-inventory-parser';
+import { ExitParser } from './parsers/exit-parser';
+import { HelpParser } from './parsers/help-parser';
+import { ListStylesParser } from './parsers/list-styles-parser';
+import { ApplyStyleParser } from './parsers/apply-style-parser';
 
 // dev-mode (cheat) command parsers
-const TeleportParser = require('./parsers/teleport-parser');
-const ConjureItemParser = require('./parsers/conjure-item-parser');
+import { TeleportParser } from './parsers/teleport-parser';
+import { ConjureItemParser } from './parsers/conjure-item-parser';
 
 const parser = new MoveParser();
 const chainTail = parser
@@ -45,13 +45,14 @@ if (opt.options.dev) {
     .setNext(new ConjureItemParser());
 }
 
-const GameEngine = require('./game-engine');
+import { GameEngine } from './game-engine';
 
-GameEngine.initialize(opt.options.dev, opt.options.style);
+const gameEngine = new GameEngine();
+gameEngine.initialize();
 
 const initialStyle = style.isStyle(opt.options.style) ?
   opt.options.style :
-  GameEngine.style;
+  gameEngine.style;
 
 const textEngine = new TextEngine(parser, initialStyle);
 

@@ -19,4 +19,3 @@ export class GameState {
   }
 }
 
-module.exports = GameState;

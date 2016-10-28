@@ -1,6 +1,6 @@
 'use strict';
 
-import {Command} from './command';
+import { Command } from './command';
 
 const topic = 'game.create';
 
@@ -8,13 +8,13 @@ const topic = 'game.create';
  * Class representing a command instructing the game wrangler to create a new game.
  */
 export class CreateGameCommand implements Command {
-  constructor(sessionToken: string) {
+  constructor() {
     this.topic = topic;
-    this.data = { sessionToken };
+    this.data = { };
   }
 
   public topic: string;
-  public data: { sessionToken: string };
+  public data: {};
 
   static get topic() {
     return topic;

@@ -17,7 +17,7 @@ export class TeleportHandler extends CommandHandler {
   private mapNodeRepository: MapNodeRepository;
 
   subscribeToTopic() {
-    bus.commandChannel.subscribe(TeleportCommand.topic, (data: TeleportData) => this.handle(data));
+    commandChannel.subscribe(TeleportCommand.topic, (data: TeleportData) => this.handle(data));
   }
 
   handle(data: TeleportData) {
@@ -25,7 +25,7 @@ export class TeleportHandler extends CommandHandler {
       const targetNode = this.mapNodeRepository.get(data.targetNodeId);
 
       if (!targetNode) {
-        bus.eventChannel.publish({
+        eventChannel.publish({
           topic: 'error',
           data: `Could not teleport. No node with id ${data.targetNodeId}.`
         });
@@ -37,12 +37,12 @@ export class TeleportHandler extends CommandHandler {
 
       game.player.currentNode = targetNode;
 
-      bus.eventChannel.publish({
+      eventChannel.publish({
         topic: 'player.location.teleported',
         data: { previousNode: game.player.currentNode, currentNode: targetNode }
       });
     } catch (error) {
-      bus.eventChannel.publish({ topic: 'error', data: error });
+      eventChannel.publish({ topic: 'error', data: error });
     }
   }
 }

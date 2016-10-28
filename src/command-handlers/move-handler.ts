@@ -16,7 +16,7 @@ export class MoveHandler extends CommandHandler {
   private gameSessionRepository: GameSessionRepository;
 
   subscribeToTopic() {
-    bus.commandChannel.subscribe(MoveCommand.topic, (data: commandDataType) => this.handle(data));
+    commandChannel.subscribe(MoveCommand.topic, (data: commandDataType) => this.handle(data));
   }
 
   handle(data: commandDataType) {
@@ -31,18 +31,18 @@ export class MoveHandler extends CommandHandler {
       if (successor) {
         game.player.currentNode = successor;
 
-        bus.eventChannel.publish({
+        eventChannel.publish({
           topic: 'player.location.moved',
           data: { previousNode: currentNode, currentNode: successor, direction: directionName }
         });
       } else {
-        bus.eventChannel.publish({
+        eventChannel.publish({
           topic: 'player.location.move-blocked',
           data: { currentNode, direction: directionName }
         });
       }
     } catch (error) {
-      bus.eventChannel.publish({ topic: 'error', data: error });
+      eventChannel.publish({ topic: 'error', data: error });
     }
   }
 }

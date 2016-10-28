@@ -20,7 +20,7 @@ export class TeleportParser extends Parser {
     if (words && words.length === 2 && verbSynonyms.indexOf(words[0]) !== -1) {
       const nodeId = Number(words[1]);
 
-      return { channel: bus.commandChannel, command: new TeleportCommand(sessionToken, nodeId) };
+      return { channel, command: new TeleportCommand(sessionToken, nodeId) };
     }
 
     return null;

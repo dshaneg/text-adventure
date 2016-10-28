@@ -22,4 +22,3 @@ export abstract class Parser {
   abstract parseInput(sessionToken: string, input: string): { channel: any, command: Command };
 }
 
-module.exports = Parser;

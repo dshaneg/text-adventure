@@ -33,4 +33,3 @@ export class MoveCommand implements Command {
   }
 }
 
-module.exports = MoveCommand;

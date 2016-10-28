@@ -2,14 +2,16 @@
 
 const bus = require('./message-bus');
 
-const CreateGameCommand = require('./commands/create-game-command');
+import { CreateGameCommand } from './commands/create-game-command';
 
-const StartGameCommand = require('./commands/start-game-command');
-const StopGameCommand = require('./commands/stop-game-command');
+import { StartGameCommand } from './commands/start-game-command';
+import { StopGameCommand } from './commands/stop-game-command';
 
-const readline = require('readline');
-const style = require('./style');
-const ItemFormatter = require('./item-formatter');
+import readline = require('readline');
+import { style } from './style';
+import { ItemFormatter } from './item-formatter';
+import { Parser } from './parsers/parser';
+import { MapNode } from './map-node';
 
 const nodeCleanup = require('node-cleanup');
 
@@ -18,8 +20,8 @@ nodeCleanup(() => process.stdout.write(style.defaultClose));
 
 const CLEAR_SCREEN_CODE = '\x1Bc';
 
-class TextEngine {
-  constructor(parser, initialStyle) {
+export class TextEngine {
+  constructor(parser: Parser, initialStyle: string) {
     this.parser = parser;
 
     if (initialStyle) {
@@ -36,7 +38,11 @@ class TextEngine {
     });
   }
 
-  handleInput(sessionToken, input) {
+  private parser: Parser;
+  private rl: readline.ReadLine;
+  private currentNode: MapNode;
+
+  handleInput(sessionToken: string, input: string) {
     const parseResponse = this.parser.parse(sessionToken, input);
 
     if (!parseResponse) {
@@ -51,13 +57,13 @@ class TextEngine {
     // eventually, the game.created event will contain a token or something identifying your game.
     // it will become useful when the engine runs as a server with multiple clients.
     // Then we'll have to pass that token around with all the commands and events.
-    bus.eventChannel.subscribe('game.created', data => this.onGameCreated(data)).once();
+    bus.eventChannel.subscribe('game.created', (data: any) => this.onGameCreated(data)).once();
 
     bus.commandChannel.publish(new CreateGameCommand());
   }
 
-  onGameCreated(data) {
-    bus.eventChannel.subscribe('game.started', (startedData) => {
+  onGameCreated(data: any) {
+    bus.eventChannel.subscribe('game.started', (startedData: any) => {
       this.hookHandlers();
 
       console.log(style.banner(startedData.banner));
@@ -65,7 +71,7 @@ class TextEngine {
       console.log(style.normal(startedData.text));
     }).once();
 
-    this.rl.on('line', line => this.handleInput(data.sessionToken, line));
+    this.rl.on('line', (line: string) => this.handleInput(data.sessionToken, line));
 
     console.log(CLEAR_SCREEN_CODE);
 
@@ -73,7 +79,7 @@ class TextEngine {
   }
 
   hookHandlers() {
-    bus.clientEventChannel.subscribe('#', (data, envelope) => {
+    bus.clientEventChannel.subscribe('#', (data: any, envelope: any) => {
       switch (envelope.topic) {
         case 'style.list-requested':
           this.handleGameResponse(data.styleNames.join(', '), style.gamemaster);
@@ -88,7 +94,7 @@ class TextEngine {
       }
     });
 
-    bus.eventChannel.subscribe('#', (data, envelope) => {
+    bus.eventChannel.subscribe('#', (data: any, envelope: any) => {
       switch (envelope.topic) {
         case 'player.location.moved':
         case 'player.location.teleported':
@@ -104,7 +110,7 @@ class TextEngine {
           }
         case 'player.inventory.added':
           {
-            const lines = [];
+            const lines: string[] = [];
             for (const listItem of data.deltas) {
               lines.push(`You add ${ItemFormatter.formatProseItem(listItem.item, listItem.count)} to your pack.`);
             }
@@ -118,7 +124,7 @@ class TextEngine {
               return;
             }
 
-            const lines = [];
+            const lines: string[] = [];
             lines.push(style.gamemaster('You are carrying the following items:'));
             for (const stack of data.items) {
               lines.push(ItemFormatter.formatListItem(stack.item, stack.count));
@@ -172,14 +178,14 @@ class TextEngine {
     });
   }
 
-  handleGameResponse(responseText, textStyle) {
+  handleGameResponse(responseText: string, textStyle?: any) {
     const currentStyle = textStyle || style.normal;
     console.log(currentStyle(`\n${responseText}`));
 
     this.rl.prompt();
   }
 
-  _setPrompt(currentNode) {
+  _setPrompt(currentNode?: MapNode) {
     if (currentNode) {
       this.currentNode = currentNode;
     }
@@ -188,13 +194,13 @@ class TextEngine {
   }
 }
 
-function buildActionList(currentNode) {
+function buildActionList(currentNode: MapNode) {
   const node = currentNode;
 
-  const directionStrings = [];
+  const directionStrings: string[] = [];
 
   for (const direction of node.getAvailableDirections()) {
-    let color;
+    let color: any;
     if (direction.traversed) {
       color = style.traversed;
     } else if (direction.visited) {
@@ -209,10 +215,9 @@ function buildActionList(currentNode) {
   return directionStrings.join(style.prompt(','));
 }
 
-function highlightHints(text) {
+function highlightHints(text: string) {
   return text.replace(/<<[a-z]+>>/g, match =>
     style.hint(match.substring(2, match.length - 2))
   );
 }
 
-module.exports = TextEngine;

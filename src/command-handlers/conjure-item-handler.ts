@@ -20,7 +20,7 @@ export class ConjureItemHandler extends CommandHandler {
   private itemRepository: ItemRepository;
 
   subscribeToTopic() {
-    bus.commandChannel.subscribe(ConjureItemCommand.topic, (data: commandDataType) => this.handle(data));
+    commandChannel.subscribe(ConjureItemCommand.topic, (data: commandDataType) => this.handle(data));
   }
 
   handle(data: commandDataType) {
@@ -29,16 +29,16 @@ export class ConjureItemHandler extends CommandHandler {
       const count = data.count || 1;
 
       if (!item) {
-        bus.eventChannel.publish({ topic: 'error', data: `Could not conjure item ${data.itemId}. No such item exists.` });
+        eventChannel.publish({ topic: 'error', data: `Could not conjure item ${data.itemId}. No such item exists.` });
         return;
       }
 
       // in the future, I want to conjure items to a map location as well
-      bus.eventChannel.publish({ topic: 'item.conjured', data: { item, count, target: 'inventory' } });
+      eventChannel.publish({ topic: 'item.conjured', data: { item, count, target: 'inventory' } });
 
-      bus.commandChannel.publish(new AddInventoryCommand(data.sessionToken, [{ item, count }]));
+      commandChannel.publish(new AddInventoryCommand(data.sessionToken, [{ item, count }]));
     } catch (error) {
-      bus.eventChannel.publish({ topic: 'error', data: error });
+      eventChannel.publish({ topic: 'error', data: error });
     }
   }
 }

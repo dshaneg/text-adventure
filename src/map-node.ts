@@ -11,6 +11,7 @@ const directionValues = new Map([
 
 export type Edge = { direction: string, headNode: MapNode, tailNode: MapNode };
 export type EdgeState = { direction: string, visited: number, traversed: boolean };
+export type MapCoordinates = { x: number, y: number, z: number }
 
 export class MapNode {
   constructor(nodeConfig: any) {
@@ -25,7 +26,7 @@ export class MapNode {
   public id: number;
   public name: string;
   public description: string;
-  public location: string;
+  public location: MapCoordinates;
   public visited: number;
   public edges: Array<Edge>;
 

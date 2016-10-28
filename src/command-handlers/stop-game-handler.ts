@@ -14,14 +14,14 @@ export class StopGameHandler extends CommandHandler {
   private gameSessionRepository: GameSessionRepository;
 
   subscribeToTopic() {
-    bus.commandChannel.subscribe(StopGameCommand.topic, (data: StopGameData) => StopGameHandler.handle(data));
+    commandChannel.subscribe(StopGameCommand.topic, (data: StopGameData) => StopGameHandler.handle(data));
   }
 
   static handle(data: StopGameData) {
     if (data.force) {
-      bus.eventChannel.publish({ topic: 'game.stopped', data: { sessionToken: data.sessionToken } });
+      eventChannel.publish({ topic: 'game.stopped', data: { sessionToken: data.sessionToken } });
     } else {
-      bus.eventChannel.publish({ topic: 'game.stop-requested', data: { sessionToken: data.sessionToken } });
+      eventChannel.publish({ topic: 'game.stop-requested', data: { sessionToken: data.sessionToken } });
     }
   }
 }

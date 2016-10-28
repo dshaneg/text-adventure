@@ -30,4 +30,3 @@ export class TeleportCommand implements Command {
   }
 }
 
-module.exports = TeleportCommand;

@@ -1,29 +1,29 @@
 'use strict';
 
 // repositories
-const GameDefinitionRepository = require('./game-definition-repository');
-const MapNodeRepository = require('./map-node-repository');
-const ItemRepository = require('./item-repository');
-const GameSessionRepository = require('./game-session-repository');
+import { GameDefinitionRepository } from './game-definition-repository';
+import { MapNodeRepository } from './map-node-repository';
+import { ItemRepository } from './item-repository';
+import { GameSessionRepository } from './game-session-repository';
 
 // game command handlers
-const CreateGameHandler = require('./command-handlers/create-game-handler');
-const MoveHandler = require('./command-handlers/move-handler');
-const ListInventoryHandler = require('./command-handlers/list-inventory-handler');
-const HelpHandler = require('./command-handlers/help-handler');
-const TeleportHandler = require('./command-handlers/teleport-handler');
-const ConjureItemHandler = require('./command-handlers/conjure-item-handler');
-const AddInventoryHandler = require('./command-handlers/add-inventory-handler');
-const EquipItemHandler = require('./command-handlers/equip-item-handler');
-const StartGameHandler = require('./command-handlers/start-game-handler');
-const StopGameHandler = require('./command-handlers/stop-game-handler');
+import { CreateGameHandler } from './command-handlers/create-game-handler';
+import { MoveHandler } from './command-handlers/move-handler';
+import { ListInventoryHandler } from './command-handlers/list-inventory-handler';
+import { HelpHandler } from './command-handlers/help-handler';
+import { TeleportHandler } from './command-handlers/teleport-handler';
+import { ConjureItemHandler } from './command-handlers/conjure-item-handler';
+import { AddInventoryHandler } from './command-handlers/add-inventory-handler';
+import { EquipItemHandler } from './command-handlers/equip-item-handler';
+import { StartGameHandler } from './command-handlers/start-game-handler';
+import { StopGameHandler } from './command-handlers/stop-game-handler';
 
 // client command handlers
-const ListStylesHandler = require('./command-handlers/list-styles-handler');
-const ApplyStyleHandler = require('./command-handlers/apply-style-handler');
+import { ListStylesHandler } from './command-handlers/list-styles-handler';
+import { ApplyStyleHandler } from './command-handlers/apply-style-handler';
 
-class GameEngine {
-  static initialize() {
+export class GameEngine {
+  initialize() {
     // repositories
     const itemRepository = new ItemRepository();
     const mapNodeRepository = new MapNodeRepository();
@@ -53,8 +53,9 @@ class GameEngine {
 
     // todo: this feels wrong, but the initial style comes from gameDefinition for now and is needed outside this module
     // it probably needs to be read further downstream at game creation or game start time then passed back to the client at that time
-    GameEngine.style = gameDefinitionRepository.gameDefinition.style;
+    this.style = gameDefinitionRepository.gameDefinition.style;
   }
+
+  public style: any;
 }
 
-module.exports = GameEngine;

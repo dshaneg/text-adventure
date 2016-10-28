@@ -1,29 +1,31 @@
 'use strict';
 
-const bus = require('./message-bus');
+import { commandChannel, eventChannel, clientCommandChannel, clientEventChannel, queryChannel } from './message-bus';
 
-const ItemFormatter = require('./item-formatter');
-const style = require('./style');
+import { ItemFormatter } from './item-formatter';
+import { style } from './style';
 
-class DebugEventLogger {
+import { MapNode } from './map-node';
+
+export class DebugEventLogger {
   static subscribe() {
-    bus.clientCommandChannel.subscribe('#', (data, envelope) => {
+    clientCommandChannel.subscribe('#', (data: any, envelope: any) => {
       log(`${envelope.channel}:${envelope.topic}`);
     });
 
-    bus.clientEventChannel.subscribe('#', (data, envelope) => {
+    clientEventChannel.subscribe('#', (data: any, envelope: any) => {
       log(`${envelope.channel}:${envelope.topic}`);
     });
 
-    bus.commandChannel.subscribe('#', (data, envelope) => {
+    commandChannel.subscribe('#', (data: any, envelope: any) => {
       log(`${envelope.channel}:${envelope.topic}`);
     });
 
-    bus.queryChannel.subscribe('#', (data, envelope) => {
+    queryChannel.subscribe('#', (data: any, envelope: any) => {
       log(`${envelope.channel}:${envelope.topic}`);
     });
 
-    bus.eventChannel.subscribe('#', (data, envelope) => {
+    eventChannel.subscribe('#', (data: any, envelope: any) => {
       switch (envelope.topic) {
         case 'game.created':
         case 'game.started':
@@ -74,12 +76,11 @@ class DebugEventLogger {
   }
 }
 
-function log(text) {
+function log(text: string) {
   console.log(style.debug(text));
 }
 
-function formatNode(node) {
+function formatNode(node: MapNode) {
   return `${node.name}(${node.id})[${node.location.x},${node.location.y},${node.location.z}]`;
 }
 
-module.exports = DebugEventLogger;

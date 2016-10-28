@@ -21,4 +21,3 @@ export class StartGameCommand implements Command {
   }
 }
 
-module.exports = StartGameCommand;

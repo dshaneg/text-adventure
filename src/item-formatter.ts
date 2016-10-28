@@ -1,15 +1,15 @@
 'use strict';
 
-const pluralize = require('pluralize');
+import pluralize = require('pluralize');
 const numberConverter = require('number-to-words');
 
-class ItemFormatter {
-  static formatDebugItem(item, count) {
+export class ItemFormatter {
+  static formatDebugItem(item: any, count: number) {
     const countText = count === 1 ? '' : ` x ${count}`;
     return `${item.name}(${item.id})${countText}`;
   }
 
-  static formatListItem(item, count) {
+  static formatListItem(item: any, count: number) {
     const countText = count === 1 ? '' : ` (${count})`;
     let itemName = item.name;
     if (item.suffix) {
@@ -19,7 +19,7 @@ class ItemFormatter {
     return `${itemName}${countText}`;
   }
 
-  static formatProseItem(item, count) {
+  static formatProseItem(item: any, count: number) {
     let itemName = pluralize(item.name, count);
     if (item.suffix) {
       itemName = `${itemName} ${item.suffix}`;
@@ -30,7 +30,7 @@ class ItemFormatter {
   }
 }
 
-function getNumberArticle(name, isProperName, count) {
+function getNumberArticle(name: string, isProperName: boolean, count: number) {
   if (count !== 1) {
     return `${numberConverter.toWords(count)} `;
   }
@@ -42,4 +42,3 @@ function getNumberArticle(name, isProperName, count) {
   return /^[aeiou]/i.test(name) ? 'an ' : 'a ';
 }
 
-module.exports = ItemFormatter;
