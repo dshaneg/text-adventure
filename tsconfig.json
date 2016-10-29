@@ -9,7 +9,8 @@
     "removeComments": false,
     "sourceMap": true,
     "types": [
-      "node"
+      "node",
+      "mocha"
     ]
   }
 }
