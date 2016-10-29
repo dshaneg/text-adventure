@@ -7,4 +7,6 @@
     "**/.git": true,
     "lib": true
   }
+,
+"typescript.check.workspaceVersion": false
 }

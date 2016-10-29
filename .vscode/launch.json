@@ -17,8 +17,8 @@
         "NODE_ENV": "development"
       },
       "console": "integratedTerminal",
-      "sourceMaps": false,
-      "outFiles": []
+      "sourceMaps": true,
+      "outFiles": [ "${workspaceRoot}\\lib\\**\\*.*"]
     },
     {
       "name": "Attach",
