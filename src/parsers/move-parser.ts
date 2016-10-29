@@ -11,7 +11,7 @@ export class MoveParser extends Parser {
   protected parseInput(sessionToken: string, inputText: string) {
     const words = inputText.toLowerCase().match(/\b(\w+)\b/g);
 
-    if (words && words.length === 1 && directionSynonyms.indexOf(words[0]) !== -1) {
+    if (words && words.length >= 1 && directionSynonyms.indexOf(words[0]) !== -1) {
       return {
         channel,
         topic: MoveCommand.topic,
