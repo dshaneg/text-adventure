@@ -16,7 +16,7 @@ const verbSynonyms = ['conjureitem', 'conjure-item', 'ci'];
  */
 export class ConjureItemParser extends Parser {
 
-  parseInput(sessionToken: string, inputText: string): { channel: any, command: ConjureItemCommand } {
+  parseInput(sessionToken: string, inputText: string) {
     const words = inputText.toLowerCase().match(/\b(\w+)\b/g);
 
     if (words && (words.length === 2 || words.length === 3) && verbSynonyms.indexOf(words[0]) !== -1) {
@@ -26,7 +26,10 @@ export class ConjureItemParser extends Parser {
         count = Number(words[2]);
       }
 
-      return { channel, command: new ConjureItemCommand(sessionToken, itemId, count) };
+      return {
+        channel,
+        topic: ConjureItemCommand.topic,
+        command: new ConjureItemCommand(sessionToken, itemId, count) };
     }
 
     return null;

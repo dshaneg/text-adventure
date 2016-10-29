@@ -10,15 +10,12 @@ const topic = 'style.apply';
 export class ApplyStyleCommand implements Command {
 
   constructor(sessionToken: string, styleName: string) {
-    this.topic = topic;
-    this.data = {
-      sessionToken,
-      styleName
-    };
+    this.sessionToken = sessionToken;
+    this.styleName = styleName;
   }
 
-  public topic: string;
-  public data: { sessionToken: string, styleName: string };
+  public sessionToken: string;
+  public styleName: string;
 
   static get topic() {
     return topic;

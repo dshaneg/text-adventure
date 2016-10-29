@@ -7,15 +7,15 @@ import { style } from '../style';
 
 export class ApplyStyleHandler extends CommandHandler {
   subscribeToTopic() {
-    clientCommandChannel.subscribe(ApplyStyleCommand.topic, (data: any) => this.handle(data));
+    clientCommandChannel.subscribe(ApplyStyleCommand.topic, (command: ApplyStyleCommand) => this.handle(command));
   }
 
-  handle(data: { sessionToken: string, styleName: string }) {
+  handle(command: ApplyStyleCommand) {
     try {
-      style.set(data.styleName);
-      clientEventChannel.publish({ topic: 'style.applied', data: { styleName: data.styleName } });
+      style.set(command.styleName);
+      clientEventChannel.publish('style.applied', { styleName: command.styleName });
     } catch (error) {
-      clientEventChannel.publish({ topic: 'error', data: `Could not find a style named '${data.styleName}'.` });
+      clientEventChannel.publish('error', `Could not find a style named '${command.styleName}'.`);
     }
   }
 }

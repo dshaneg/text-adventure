@@ -2,7 +2,7 @@
 
 import { CommandHandler } from './command-handler';
 import { commandChannel, eventChannel } from '../message-bus';
-import { TeleportCommand, TeleportData } from '../commands/teleport-command';
+import { TeleportCommand } from '../commands/teleport-command';
 import { GameSessionRepository } from '../game-session-repository';
 import { MapNodeRepository } from '../map-node-repository';
 
@@ -17,32 +17,27 @@ export class TeleportHandler extends CommandHandler {
   private mapNodeRepository: MapNodeRepository;
 
   subscribeToTopic() {
-    commandChannel.subscribe(TeleportCommand.topic, (data: TeleportData) => this.handle(data));
+    commandChannel.subscribe(TeleportCommand.topic, (command: TeleportCommand) => this.handle(command));
   }
 
-  handle(data: TeleportData) {
+  handle(command: TeleportCommand) {
     try {
-      const targetNode = this.mapNodeRepository.get(data.targetNodeId);
+      const targetNode = this.mapNodeRepository.get(command.targetNodeId);
 
       if (!targetNode) {
-        eventChannel.publish({
-          topic: 'error',
-          data: `Could not teleport. No node with id ${data.targetNodeId}.`
-        });
-
+        eventChannel.publish('error', `Could not teleport. No node with id ${command.targetNodeId}.`);
         return;
       }
 
-      const game = this.gameSessionRepository.get(data.sessionToken);
+      const game = this.gameSessionRepository.get(command.sessionToken);
 
       game.player.currentNode = targetNode;
 
-      eventChannel.publish({
-        topic: 'player.location.teleported',
-        data: { previousNode: game.player.currentNode, currentNode: targetNode }
-      });
+      eventChannel.publish('player.location.teleported',
+        { previousNode: game.player.currentNode, currentNode: targetNode }
+      );
     } catch (error) {
-      eventChannel.publish({ topic: 'error', data: error });
+      eventChannel.publish('error', error);
     }
   }
 }

@@ -8,9 +8,12 @@ import { ListStylesCommand } from '../commands/list-styles-command';
 export class ListStylesHandler extends CommandHandler {
 
   subscribeToTopic() {
-    clientCommandChannel.subscribe(ListStylesCommand.topic, () => {
+    clientCommandChannel.subscribe(ListStylesCommand.topic, (command: ListStylesCommand) => {
       const styleNames = style.definitionNames;
-      clientEventChannel.publish({ topic: 'style.list-requested', data: { styleNames } });
+      clientEventChannel.publish('style.list-requested', {
+        sessionToken: command.sessionToken,
+        styleNames
+      });
     });
   }
 }

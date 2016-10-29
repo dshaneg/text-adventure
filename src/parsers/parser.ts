@@ -1,6 +1,9 @@
 'use strict';
 
 import {Command} from '../commands/command';
+import postal = require('postal');
+
+export type ParseResponse = { channel: IChannelDefinition<any>, topic: string,  command: Command };
 
 export abstract class Parser {
   setNext(parser: Parser) {
@@ -10,7 +13,7 @@ export abstract class Parser {
 
   public next: Parser;
 
-  parse(sessionToken: string, input: string): { channel: any, command: Command } {
+  parse(sessionToken: string, input: string): ParseResponse {
     const command = this.parseInput(sessionToken, input);
     if (!command && this.next) {
       return this.next.parse(sessionToken, input);
@@ -19,6 +22,6 @@ export abstract class Parser {
     return command;
   }
 
-  abstract parseInput(sessionToken: string, input: string): { channel: any, command: Command };
+  protected abstract parseInput(sessionToken: string, input: string): ParseResponse;
 }
 

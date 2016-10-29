@@ -14,18 +14,18 @@ export class ListInventoryHandler extends CommandHandler {
   private gameSessionRepository: GameSessionRepository;
 
   subscribeToTopic() {
-    commandChannel.subscribe(ListInventoryCommand.topic, (data: { sessionToken: string }) => this.handle(data));
+    commandChannel.subscribe(ListInventoryCommand.topic, (command: ListInventoryCommand) => this.handle(command));
   }
 
-  handle(data: { sessionToken: string }) {
+  handle(command: ListInventoryCommand) {
     try {
-      const game = this.gameSessionRepository.get(data.sessionToken);
+      const game = this.gameSessionRepository.get(command.sessionToken);
 
       const inventoryList = game.player.inventory.getAll();
 
       eventChannel.publish('player.inventory.list-requested', { items: inventoryList });
     } catch (error) {
-      eventChannel.publish({ topic: 'error', data: error });
+      eventChannel.publish('error', error);
     }
   }
 }

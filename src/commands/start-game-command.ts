@@ -9,12 +9,10 @@ const topic = 'game.start';
  */
 export class StartGameCommand implements Command {
   constructor(sessionToken: string) {
-    this.topic = topic;
-    this.data = { sessionToken };
+    this.sessionToken = sessionToken;
   }
 
-  public topic: string;
-  public data: { sessionToken: string };
+  public sessionToken: string;
 
   static get topic() {
     return topic;

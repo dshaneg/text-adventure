@@ -10,16 +10,14 @@ const topic = 'item.conjure';
 export class ConjureItemCommand implements Command {
 
   constructor(sessionToken: string, itemId: number, count: number) {
-    this.topic = topic;
-    this.data = {
-      sessionToken,
-      itemId,
-      count
-    };
+      this.sessionToken = sessionToken;
+      this.itemId = itemId;
+      this.count = count;
   }
 
-  public topic: string;
-  public data: {sessionToken: string, itemId: number, count: number};
+  public sessionToken: string;
+  public itemId: number;
+  public count: number;
 
   static get topic() {
     return topic;

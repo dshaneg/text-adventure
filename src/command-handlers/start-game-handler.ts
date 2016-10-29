@@ -35,40 +35,36 @@ export class StartGameHandler extends CommandHandler {
   private mapNodeRepository: MapNodeRepository;
 
   subscribeToTopic() {
-    commandChannel.subscribe(StartGameCommand.topic, (data: { sessionToken: string }) => this.handle(data));
+    commandChannel.subscribe(StartGameCommand.topic, (command: StartGameCommand) => this.handle(command));
   }
 
-  handle(data: { sessionToken: string }) {
+  handle(command: StartGameCommand) {
     try {
-      const game = this.gameSessionRepository.get(data.sessionToken);
+      const game = this.gameSessionRepository.get(command.sessionToken);
 
       game.start();
 
       // initialize starting inventory
-      commandChannel.publish(new AddInventoryCommand(data.sessionToken, this.itemRepository.startSet));
+      commandChannel.publish(AddInventoryCommand.topic, new AddInventoryCommand(command.sessionToken, this.itemRepository.startSet));
 
       for (const startItem of this.itemRepository.startSet) {
         if (startItem.equip) {
-          commandChannel.publish(new EquipItemCommand(data.sessionToken, startItem.item));
+          commandChannel.publish(EquipItemCommand.topic, new EquipItemCommand(command.sessionToken, startItem.item));
         }
       }
 
       // game.started is a trigger for other subscribers (notably text-engine) to add their subscriptions after initialization
-      eventChannel.publish({
-        topic: 'game.started',
-        sessionToken: data.sessionToken,
-        data: {
-          banner: this.gameDefinitionRepository.gameDefinition.banner,
-          text: this.gameDefinitionRepository.gameDefinition.opening
-        }
+      eventChannel.publish('game.started', {
+        sessionToken: command.sessionToken,
+        banner: this.gameDefinitionRepository.gameDefinition.banner,
+        text: this.gameDefinitionRepository.gameDefinition.opening
       });
 
-      commandChannel.publish(new TeleportCommand(data.sessionToken, this.mapNodeRepository.entryNode.id));
+      commandChannel.publish(TeleportCommand.topic, new TeleportCommand(command.sessionToken, this.mapNodeRepository.entryNode.id));
     } catch (error) {
-      eventChannel.publish({
-        topic: 'error',
-        sessionToken: data.sessionToken,
-        data: error
+      eventChannel.publish('error', {
+        sessionToken: command.sessionToken,
+        error
       });
     }
   }

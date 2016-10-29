@@ -18,18 +18,12 @@ export class AddInventoryCommand implements Command {
    * @memberOf AddInventoryCommand
    */
   constructor(sessionToken: string, deltas: Array<{item: any, count: number}>) {
-    this.topic = topic;
     this.deltas = deltas;
     this.sessionToken = sessionToken;
   }
 
-  public topic: string;
   public sessionToken: string;
   public deltas: Array<{item: any, count: number}>;
-
-  public get data(): { sessionToken: string, deltas: Array<{item: any, count: number}>} {
-    return { sessionToken: this.sessionToken, deltas: this.deltas };
-  }
 
   /**
    * Adds an item delta (item and acount) to the command.

@@ -12,12 +12,10 @@ export class HelpCommand implements Command {
    * Create an instance of StartCommand.
    */
   constructor(sessionToken: string) {
-    this.topic = topic;
-    this.data = { sessionToken };
+    this.sessionToken = sessionToken;
   }
 
-  public topic: string;
-  public data: { sessionToken: string };
+  public sessionToken: string;
 
   static get topic() {
     return topic;

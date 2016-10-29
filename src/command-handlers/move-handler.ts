@@ -5,8 +5,6 @@ import { commandChannel, eventChannel } from '../message-bus';
 import { MoveCommand } from '../commands/move-command';
 import { GameSessionRepository } from '../game-session-repository';
 
-type commandDataType = { sessionToken: string, direction: string };
-
 export class MoveHandler extends CommandHandler {
   constructor(gameSessionRepository: GameSessionRepository) {
     super();
@@ -16,33 +14,34 @@ export class MoveHandler extends CommandHandler {
   private gameSessionRepository: GameSessionRepository;
 
   subscribeToTopic() {
-    commandChannel.subscribe(MoveCommand.topic, (data: commandDataType) => this.handle(data));
+    commandChannel.subscribe(MoveCommand.topic, (command: MoveCommand) => this.handle(command));
   }
 
-  handle(data: commandDataType) {
+  handle(command: MoveCommand) {
     try {
-      const game = this.gameSessionRepository.get(data.sessionToken);
+      const game = this.gameSessionRepository.get(command.sessionToken);
 
       const currentNode = game.player.currentNode;
-      const successor = currentNode.getSuccessor(data.direction);
+      const successor = currentNode.getSuccessor(command.direction);
 
-      const directionName = getDirectionName(data.direction);
+      const directionName = getDirectionName(command.direction);
 
       if (successor) {
         game.player.currentNode = successor;
 
-        eventChannel.publish({
-          topic: 'player.location.moved',
-          data: { previousNode: currentNode, currentNode: successor, direction: directionName }
+        eventChannel.publish('player.location.moved', {
+          previousNode: currentNode,
+          currentNode: successor,
+          direction: directionName
         });
       } else {
-        eventChannel.publish({
-          topic: 'player.location.move-blocked',
-          data: { currentNode, direction: directionName }
+        eventChannel.publish('player.location.move-blocked', {
+          currentNode,
+          direction: directionName
         });
       }
     } catch (error) {
-      eventChannel.publish({ topic: 'error', data: error });
+      eventChannel.publish('error', error );
     }
   }
 }

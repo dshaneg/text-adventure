@@ -1,6 +1,6 @@
 'use strict';
 
-import {Command} from './command';
+import { Command } from './command';
 
 const topic = 'player.inventory.equip-item';
 
@@ -12,15 +12,12 @@ export class EquipItemCommand implements Command {
    * Create an instance of StartCommand.
    */
   constructor(sessionToken: string, item: any) {
-    this.topic = topic;
-    this.data = {
-      sessionToken,
-      item
-    };
+    this.sessionToken = sessionToken;
+    this.item = item;
   }
 
-  public topic: string;
-  public data: { sessionToken: string, item: any };
+  public sessionToken: string;
+  public item: any;
 
   static get topic() {
     return topic;

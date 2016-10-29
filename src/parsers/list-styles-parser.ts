@@ -8,7 +8,7 @@ const verbSynonyms = ['list', 'l'];
 const nounSynonyms = ['styles', 'style'];
 
 export class ListStylesParser extends Parser {
-  parseInput(sessionToken: string, inputText: string): { channel: any, command: ListStylesCommand } {
+  parseInput(sessionToken: string, inputText: string) {
     const words = inputText.toLowerCase().match(/\b(\w+)\b/g);
 
     if (!words) {
@@ -29,6 +29,9 @@ export class ListStylesParser extends Parser {
   }
 
   buildCommand(sessionToken: string) {
-    return { channel, command: new ListStylesCommand(sessionToken) };
+    return {
+      channel,
+      topic: ListStylesCommand.topic,
+      command: new ListStylesCommand(sessionToken) };
   }
 }

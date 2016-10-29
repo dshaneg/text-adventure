@@ -10,12 +10,10 @@ const topic = 'player.inventory.list';
 export class ListInventoryCommand implements Command {
 
   constructor(sessionToken: string) {
-    this.topic = topic;
-    this.data = { sessionToken };
+    this.sessionToken = sessionToken;
   }
 
-  public topic: string;
-  public data: { sessionToken: string };
+  public sessionToken: string;
 
   static get topic() {
     return topic;

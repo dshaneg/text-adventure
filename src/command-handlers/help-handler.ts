@@ -15,8 +15,9 @@ export class HelpHandler extends CommandHandler {
   private gameDefinitionRepository: GameDefinitionRepository;
 
   subscribeToTopic() {
-    commandChannel.subscribe(HelpCommand.topic, () =>
+    commandChannel.subscribe(HelpCommand.topic, (command: HelpCommand) =>
       eventChannel.publish('game.help-requested', {
+        sessionToken: command.sessionToken,
         text: this.gameDefinitionRepository.gameDefinition.help
       })
     );

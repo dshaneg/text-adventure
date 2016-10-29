@@ -7,8 +7,6 @@ import { AddInventoryCommand } from '../commands/add-inventory-command';
 import { GameSessionRepository } from '../game-session-repository';
 import { ItemRepository } from '../item-repository';
 
-type commandDataType = { sessionToken: string, itemId: number, count: number };
-
 export class ConjureItemHandler extends CommandHandler {
   constructor(gameSessionRepository: GameSessionRepository, itemRepository: ItemRepository) {
     super();
@@ -20,25 +18,25 @@ export class ConjureItemHandler extends CommandHandler {
   private itemRepository: ItemRepository;
 
   subscribeToTopic() {
-    commandChannel.subscribe(ConjureItemCommand.topic, (data: commandDataType) => this.handle(data));
+    commandChannel.subscribe(ConjureItemCommand.topic, (command: ConjureItemCommand) => this.handle(command));
   }
 
-  handle(data: commandDataType) {
+  handle(command: ConjureItemCommand) {
     try {
-      const item = this.itemRepository.get(data.itemId);
-      const count = data.count || 1;
+      const item = this.itemRepository.get(command.itemId);
+      const count = command.count || 1;
 
       if (!item) {
-        eventChannel.publish({ topic: 'error', data: `Could not conjure item ${data.itemId}. No such item exists.` });
+        eventChannel.publish('error', `Could not conjure item ${command.itemId}. No such item exists.`);
         return;
       }
 
       // in the future, I want to conjure items to a map location as well
-      eventChannel.publish({ topic: 'item.conjured', data: { item, count, target: 'inventory' } });
+      eventChannel.publish('item.conjured', { item, count, target: 'inventory' });
 
-      commandChannel.publish(new AddInventoryCommand(data.sessionToken, [{ item, count }]));
+      commandChannel.publish(AddInventoryCommand.topic, new AddInventoryCommand(command.sessionToken, [{ item, count }]));
     } catch (error) {
-      eventChannel.publish({ topic: 'error', data: error });
+      eventChannel.publish('error', error);
     }
   }
 }

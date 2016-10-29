@@ -1,5 +1,5 @@
 'use strict';
 
-export interface Command {
+export interface Event {
   sessionToken?: string;
 }

@@ -19,8 +19,8 @@ bus.configuration.promise.getPromise = function getPromise(deferred: any) {
   return deferred.promise;
 };
 
-export const eventChannel = bus.channel('/game/events');
-export const queryChannel = bus.channel('/game/queries');
-export const commandChannel = bus.channel('/game/commands');
-export const clientEventChannel = bus.channel('/client/events');
-export const clientCommandChannel = bus.channel('/client/commands');
+export const eventChannel = bus.channel('/game/events') as IChannelDefinition<any>;
+export const queryChannel = bus.channel('/game/queries') as IChannelDefinition<any>;
+export const commandChannel = bus.channel('/game/commands') as IChannelDefinition<any>;
+export const clientEventChannel = bus.channel('/client/events') as IChannelDefinition<any>;
+export const clientCommandChannel = bus.channel('/client/commands') as IChannelDefinition<any>;

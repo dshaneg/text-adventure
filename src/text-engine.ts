@@ -1,6 +1,6 @@
 'use strict';
 
-const bus = require('./message-bus');
+import { commandChannel, eventChannel, clientEventChannel } from './message-bus';
 
 import { CreateGameCommand } from './commands/create-game-command';
 
@@ -50,20 +50,20 @@ export class TextEngine {
       return;
     }
 
-    parseResponse.channel.publish(parseResponse.command);
+    parseResponse.channel.publish(parseResponse.topic, parseResponse.command);
   }
 
   start() {
     // eventually, the game.created event will contain a token or something identifying your game.
     // it will become useful when the engine runs as a server with multiple clients.
     // Then we'll have to pass that token around with all the commands and events.
-    bus.eventChannel.subscribe('game.created', (data: any) => this.onGameCreated(data)).once();
+    eventChannel.subscribe('game.created', (data: any) => this.onGameCreated(data)).once();
 
-    bus.commandChannel.publish(new CreateGameCommand());
+    commandChannel.publish(CreateGameCommand.topic, new CreateGameCommand());
   }
 
   onGameCreated(data: any) {
-    bus.eventChannel.subscribe('game.started', (startedData: any) => {
+    eventChannel.subscribe('game.started', (startedData: any) => {
       this.hookHandlers();
 
       console.log(style.banner(startedData.banner));
@@ -75,11 +75,11 @@ export class TextEngine {
 
     console.log(CLEAR_SCREEN_CODE);
 
-    bus.commandChannel.publish(new StartGameCommand(data.sessionToken));
+    commandChannel.publish(StartGameCommand.topic, new StartGameCommand(data.sessionToken));
   }
 
   hookHandlers() {
-    bus.clientEventChannel.subscribe('#', (data: any, envelope: any) => {
+    clientEventChannel.subscribe('#', (data: any, envelope: any) => {
       switch (envelope.topic) {
         case 'style.list-requested':
           this.handleGameResponse(data.styleNames.join(', '), style.gamemaster);
@@ -94,7 +94,7 @@ export class TextEngine {
       }
     });
 
-    bus.eventChannel.subscribe('#', (data: any, envelope: any) => {
+    eventChannel.subscribe('#', (data: any, envelope: any) => {
       switch (envelope.topic) {
         case 'player.location.moved':
         case 'player.location.teleported':
@@ -152,7 +152,7 @@ export class TextEngine {
           {
             this.rl.question(style.gamemaster('\nAre you sure you want to leave the game? [Y/n] '), (answer) => {
               if (answer.match(/^y$|^yes$|^$/i)) {
-                bus.commandChannel.publish(new StopGameCommand(data.sessionToken, true));
+                commandChannel.publish(StopGameCommand.topic, new StopGameCommand(data.sessionToken, true));
               } else {
                 this.rl.prompt();
               }

@@ -14,13 +14,16 @@ const verbSynonyms = ['teleport', 'port', 'portal'];
  * @class TeleportParser
  */
 export class TeleportParser extends Parser {
-  parseInput(sessionToken: string, inputText: string): { channel: any, command: TeleportCommand } {
+  parseInput(sessionToken: string, inputText: string) {
     const words = inputText.toLowerCase().match(/\b(\w+)\b/g);
 
     if (words && words.length === 2 && verbSynonyms.indexOf(words[0]) !== -1) {
       const nodeId = Number(words[1]);
 
-      return { channel, command: new TeleportCommand(sessionToken, nodeId) };
+      return {
+        channel,
+        topic: TeleportCommand.topic,
+        command: new TeleportCommand(sessionToken, nodeId) };
     }
 
     return null;

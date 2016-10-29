@@ -14,22 +14,16 @@ export class CreateGameHandler extends CommandHandler {
   private gameSessionRepository: GameSessionRepository;
 
   subscribeToTopic() {
-    commandChannel.subscribe(CreateGameCommand.topic, () => this.handle());
+    commandChannel.subscribe(CreateGameCommand.topic, (command: CreateGameCommand) => this.handle(command));
   }
 
-  handle() {
+  handle(command: CreateGameCommand) {
     try {
       const sessionToken = this.gameSessionRepository.create();
 
-      eventChannel.publish({
-        topic: 'game.created',
-        data: { sessionToken }
-      });
+      eventChannel.publish('game.created', { sessionToken });
     } catch (error) {
-      eventChannel.publish({
-        topic: 'error',
-        data: error
-      });
+      eventChannel.publish('error', error);
     }
   }
 }

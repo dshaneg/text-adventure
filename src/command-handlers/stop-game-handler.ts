@@ -2,7 +2,7 @@
 
 import { CommandHandler } from './command-handler';
 import { commandChannel, eventChannel } from '../message-bus';
-import { StopGameCommand, StopGameData } from '../commands/stop-game-command';
+import { StopGameCommand } from '../commands/stop-game-command';
 import { GameSessionRepository } from '../game-session-repository';
 
 export class StopGameHandler extends CommandHandler {
@@ -14,14 +14,14 @@ export class StopGameHandler extends CommandHandler {
   private gameSessionRepository: GameSessionRepository;
 
   subscribeToTopic() {
-    commandChannel.subscribe(StopGameCommand.topic, (data: StopGameData) => StopGameHandler.handle(data));
+    commandChannel.subscribe(StopGameCommand.topic, (command: StopGameCommand) => StopGameHandler.handle(command));
   }
 
-  static handle(data: StopGameData) {
-    if (data.force) {
-      eventChannel.publish({ topic: 'game.stopped', data: { sessionToken: data.sessionToken } });
+  static handle(command: StopGameCommand) {
+    if (command.force) {
+      eventChannel.publish('game.stopped', { sessionToken: command.sessionToken });
     } else {
-      eventChannel.publish({ topic: 'game.stop-requested', data: { sessionToken: data.sessionToken } });
+      eventChannel.publish('game.stop-requested', { sessionToken: command.sessionToken });
     }
   }
 }
