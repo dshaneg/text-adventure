@@ -37,8 +37,13 @@ To get started, just hit the command shell with...
 ```shell
 npm install
 ```
-
 ...to get things set up and then...
+
+```shell
+tsc
+```
+
+...to build the application and then...
 
 ```shell
 node lib/index
