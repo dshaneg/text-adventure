@@ -41,6 +41,14 @@ npm install
 ...to get things set up and then...
 
 ```shell
+tsc
+```
+
+...to compile (make sure you have typescript installed globally!), and finally
+
+```shell
+npm start
+...or...
 node lib/index
 ```
 
@@ -50,6 +58,8 @@ to the console. To turn it on use the debug flag.
 ```shell
 node lib/index --debug
 ```
+
+You have to use the ```node lib/index``` syntax to start the game with arguments.
 
 ## developer (cheat) mode
 
@@ -72,6 +82,8 @@ teleport {map-node-id} // sets your current location to the given map node
 
 I'm using Visual Studio Code as my editor, so you'll notice some VSC-specific files sprinkled in.
 Also, I'm using a fair amount of ES6 syntax, so check your node version if you run into problems.
+
+I've also converted the application to TypeScript. Like I said earlier, this application is for me to learn on.
 
 ## design
 
