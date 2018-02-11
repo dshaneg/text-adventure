@@ -1,78 +1,60 @@
 'use strict';
 
-import { commandChannel, eventChannel, clientCommandChannel, clientEventChannel, queryChannel } from './message-bus';
+import { EventHandler } from './event-handler';
 
-import { ItemFormatter } from './item-formatter';
 import { style } from './style';
 
-import { MapNode } from './map-node';
+export class DebugEventLogger implements EventHandler {
+  constructor(private eventHandler: EventHandler) {
+  }
 
-export class DebugEventLogger {
-  static subscribe() {
-    clientCommandChannel.subscribe('#', (data: any, envelope: any) => {
-      log(`${envelope.channel}:${envelope.topic}`);
-    });
+  handle(gameState: any, event: any): void {
+    switch (event.topic) {
+      case 'game.created':
+      case 'game.started':
+      case 'game.help-requested':
+      case 'game.stop-requested':
+      case 'game.stopped':
+        log(event.topic);
+        break;
 
-    clientEventChannel.subscribe('#', (data: any, envelope: any) => {
-      log(`${envelope.channel}:${envelope.topic}`);
-    });
+      case 'player.location.moved':
+        log(`${event.topic} => ${event.direction} from ${formatNode(event.previousNode)} to ${formatNode(event.currentNode)}`);
+        break;
 
-    commandChannel.subscribe('#', (data: any, envelope: any) => {
-      log(`${envelope.channel}:${envelope.topic}`);
-    });
+      case 'player.location.teleported':
+        log(`${event.topic} => from ${formatNode(event.previousNode)} to ${formatNode(event.currentNode)}`);
+        break;
 
-    queryChannel.subscribe('#', (data: any, envelope: any) => {
-      log(`${envelope.channel}:${envelope.topic}`);
-    });
+      case 'player.location.move-blocked':
+        log(`${event.topic} => trying to move ${event.direction} from ${formatNode(event.currentNode)}`);
+        break;
 
-    eventChannel.subscribe('#', (data: any, envelope: any) => {
-      switch (envelope.topic) {
-        case 'game.created':
-        case 'game.started':
-        case 'game.help-requested':
-        case 'game.stop-requested':
-        case 'game.stopped':
-          log(`${envelope.channel}:${envelope.topic}`);
-          break;
+      case 'player.inventory.added':
+        log(`${event.topic} => ${formatDebugItem(event.item, event.count)}`);
+        break;
 
-        case 'player.location.moved':
-          log(`${envelope.channel}:${envelope.topic} => ${data.direction} from ${formatNode(data.previousNode)} to ${formatNode(data.currentNode)}`);
-          break;
+      case 'player.inventory.item-equipped':
+        log(`${event.topic} => ${event.item.name}(${event.item.id})`);
+        break;
 
-        case 'player.location.teleported':
-          log(`${envelope.channel}:${envelope.topic} => from ${formatNode(data.previousNode)} to ${formatNode(data.currentNode)}`);
-          break;
+      case 'item.conjured':
+        log(`${event.topic} => ${formatDebugItem(event.item, event.count)} to ${event.target}`);
+        break;
 
-        case 'player.location.move-blocked':
-          log(`${envelope.channel}:${envelope.topic} => trying to move ${data.direction} from ${formatNode(data.currentNode)}`);
-          break;
+      case 'error':
+        log(`${event.topic} => ${event}`);
+        break;
 
-        case 'player.inventory.added':
-          for (const listItem of data.deltas) {
-            log(`${envelope.channel}:${envelope.topic} => ${ItemFormatter.formatDebugItem(listItem.item, listItem.count)}`);
-          }
-          break;
+      case 'player.inventory.list-requested':
+        log(`${event.topic} => ${event.items.length} stacks in inventory`);
+        break;
 
-        case 'player.inventory.item-equipped':
-          log(`${envelope.channel}:${envelope.topic} => ${data.item.name}(${data.item.id})`);
-          break;
+      default:
+        log(`${event.topic} => just happened`);
+    }
 
-        case 'item.conjured':
-          log(`${envelope.channel}:${envelope.topic} => ${ItemFormatter.formatDebugItem(data.item, data.count)} to ${data.target}`);
-          break;
-
-        case 'error':
-          log(`${envelope.channel}:${envelope.topic} => ${data}`);
-          break;
-
-        case 'player.inventory.list-requested':
-          log(`${envelope.channel}:${envelope.topic} => ${data.items.length} stacks in inventory`);
-          break;
-
-        default:
-          log(`${envelope.channel}:${envelope.topic} => NOT SET UP FOR DEBUGGING`);
-      }
-    });
+    this.eventHandler.handle(gameState, event);
   }
 }
 
@@ -80,7 +62,11 @@ function log(text: string) {
   console.log(style.debug(text));
 }
 
-function formatNode(node: MapNode) {
+function formatNode(node: any) {
   return `${node.name}(${node.id})[${node.location.x},${node.location.y},${node.location.z}]`;
 }
 
+function formatDebugItem(item: any, count: number) {
+  const countText = count === 1 ? '' : ` x ${count}`;
+  return `${item.name}(${item.id})${countText}`;
+}

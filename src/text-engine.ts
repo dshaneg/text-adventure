@@ -1,17 +1,12 @@
 'use strict';
 
-const bus = require('./message-bus');
-
-import { CreateGameCommand } from './commands/create-game-command';
-
-import { StartGameCommand } from './commands/start-game-command';
-import { StopGameCommand } from './commands/stop-game-command';
-
 import readline = require('readline');
 import { style } from './style';
-import { ItemFormatter } from './item-formatter';
 import { Parser } from './parsers/parser';
-import { MapNode } from './map-node';
+import { EventHandler } from './event-handler';
+import { TextAdventureCore as Core } from '@dshaneg/text-adventure-core';
+// const GameEngine = Core.interfaces.GameEngine;
+// const GameState = Core.interfaces.GameState;
 
 const nodeCleanup = require('node-cleanup');
 
@@ -21,7 +16,14 @@ nodeCleanup(() => process.stdout.write(style.defaultClose));
 const CLEAR_SCREEN_CODE = '\x1Bc';
 
 export class TextEngine {
-  constructor(parser: Parser, initialStyle: string) {
+  constructor(
+      private gameEngine: any, // why isn't ts cooperating?
+      private gameState: any,
+      private parser: Parser,
+      private eventHandler: EventHandler,
+      private rl: readline.ReadLine,
+      initialStyle: string) {
+
     this.parser = parser;
 
     if (initialStyle) {
@@ -31,193 +33,50 @@ export class TextEngine {
         // eat it
       }
     }
-
-    this.rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout
-    });
   }
 
-  private parser: Parser;
-  private rl: readline.ReadLine;
-  private currentNode: MapNode;
+  private clientEvents = new Array<any>();
 
-  handleInput(sessionToken: string, input: string) {
-    const parseResponse = this.parser.parse(sessionToken, input);
-
-    if (!parseResponse) {
-      this.handleGameResponse(style.gamemaster(`Huh? I didn't understand that. Type ${style.hint('help')} if you're stuck.`));
-      return;
-    }
-
-    parseResponse.channel.publish(parseResponse.command);
+  private addEvent(event: any): void {
+    this.clientEvents.push(event);
   }
 
   start() {
-    // eventually, the game.created event will contain a token or something identifying your game.
-    // it will become useful when the engine runs as a server with multiple clients.
-    // Then we'll have to pass that token around with all the commands and events.
-    bus.eventChannel.subscribe('game.created', (data: any) => this.onGameCreated(data)).once();
-
-    bus.commandChannel.publish(new CreateGameCommand());
-  }
-
-  onGameCreated(data: any) {
-    bus.eventChannel.subscribe('game.started', (startedData: any) => {
-      this.hookHandlers();
-
-      console.log(style.banner(startedData.banner));
-      console.log();
-      console.log(style.normal(startedData.text));
-    }).once();
-
-    this.rl.on('line', (line: string) => this.handleInput(data.sessionToken, line));
+    this.rl.on('line', (line: string) => this.handleInput(line));
 
     console.log(CLEAR_SCREEN_CODE);
 
-    bus.commandChannel.publish(new StartGameCommand(data.sessionToken));
+    const response = this.gameEngine.startGame(this.gameState);
+    this.handleEvents(response.events);
   }
 
-  hookHandlers() {
-    bus.clientEventChannel.subscribe('#', (data: any, envelope: any) => {
-      switch (envelope.topic) {
-        case 'style.list-requested':
-          this.handleGameResponse(data.styleNames.join(', '), style.gamemaster);
-          break;
-        case 'error':
-          this.handleGameResponse(data, style.error);
-          break;
-
-        default:
-          this._setPrompt();
-          this.handleGameResponse('As you command.', style.gamemaster);
-      }
-    });
-
-    bus.eventChannel.subscribe('#', (data: any, envelope: any) => {
-      switch (envelope.topic) {
-        case 'player.location.moved':
-        case 'player.location.teleported':
-          {
-            this._setPrompt(data.currentNode);
-            this.handleGameResponse(data.currentNode.description);
-            break;
-          }
-        case 'player.location.move-blocked':
-          {
-            this.handleGameResponse(`The way ${data.direction} is not for you to travel.`, style.gamemaster);
-            break;
-          }
-        case 'player.inventory.added':
-          {
-            const lines: string[] = [];
-            for (const listItem of data.deltas) {
-              lines.push(`You add ${ItemFormatter.formatProseItem(listItem.item, listItem.count)} to your pack.`);
-            }
-            this.handleGameResponse(lines.join('\n'));
-            break;
-          }
-        case 'player.inventory.list-requested':
-          {
-            if (!data.items.length) {
-              this.handleGameResponse(style.gamemaster('Inventory is empty.'));
-              return;
-            }
-
-            const lines: string[] = [];
-            lines.push(style.gamemaster('You are carrying the following items:'));
-            for (const stack of data.items) {
-              lines.push(ItemFormatter.formatListItem(stack.item, stack.count));
-            }
-
-            this.handleGameResponse(lines.join('\n'));
-            break;
-          }
-        case 'player.inventory.item-equipped':
-          {
-            this.handleGameResponse(`You equip the ${data.item.name}.`);
-            break;
-          }
-        case 'item.conjured':
-          {
-            console.log(style.gamemaster('\nThe air begins to crackle with energy and suddenly something materializes in your hands...'));
-            break;
-          }
-        case 'game.help-requested':
-          {
-            this.handleGameResponse(highlightHints(data.text), style.gamemaster);
-            break;
-          }
-        case 'game.stop-requested':
-          {
-            this.rl.question(style.gamemaster('\nAre you sure you want to leave the game? [Y/n] '), (answer) => {
-              if (answer.match(/^y$|^yes$|^$/i)) {
-                bus.commandChannel.publish(new StopGameCommand(data.sessionToken, true));
-              } else {
-                this.rl.prompt();
-              }
-            });
-            break;
-          }
-        case 'game.stopped':
-          {
-            console.log((style.gamemaster('\nSee you next time.')));
-            this.rl.close();
-            break;
-          }
-        case 'error':
-          {
-            this.handleGameResponse(data, style.error);
-            break;
-          }
-        default:
-          {
-            this.handleGameResponse(`${envelope.topic} not handled`, style.error);
-          }
-      }
-    });
+  stop() {
+    const response = this.gameEngine.stopGame(this.gameState);
+    this.handleEvents(response.events);
   }
 
-  handleGameResponse(responseText: string, textStyle?: any) {
-    const currentStyle = textStyle || style.normal;
-    console.log(currentStyle(`\n${responseText}`));
+  handleInput(input: string) {
+    let events: any;
 
-    this.rl.prompt();
-  }
-
-  _setPrompt(currentNode?: MapNode) {
-    if (currentNode) {
-      this.currentNode = currentNode;
-    }
-
-    this.rl.setPrompt(style.prompt(`\n${this.currentNode.name} [${buildActionList(this.currentNode)}] > `) + style.defaultOpen);
-  }
-}
-
-function buildActionList(currentNode: MapNode) {
-  const node = currentNode;
-
-  const directionStrings: string[] = [];
-
-  for (const direction of node.getAvailableDirections()) {
-    let color: any;
-    if (direction.traversed) {
-      color = style.traversed;
-    } else if (direction.visited) {
-      color = style.visited;
+    // Parse for any client-side events before passing the input over to the game engine
+    const command = this.parser.parseInput(input);
+    if (command) {
+      this.clientEvents = new Array<any>(); // todo: ugly
+      command.execute(this.addEvent);
+      events = this.clientEvents;
     } else {
-      color = style.unvisited;
+      events = this.gameEngine.handleInput(this.gameState, input).events;
     }
 
-    directionStrings.push(color(direction.direction));
+    this.handleEvents(events);
   }
 
-  return directionStrings.join(style.prompt(','));
+  handleEvents(events: Array<any>): void {
+    events.forEach((event: any) => {
+      this.eventHandler.handle(this.gameState, event);
+    });
+  }
 }
 
-function highlightHints(text: string) {
-  return text.replace(/<<[a-z]+>>/g, match =>
-    style.hint(match.substring(2, match.length - 2))
-  );
-}
+
 
