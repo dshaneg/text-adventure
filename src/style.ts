@@ -30,6 +30,10 @@ class Style implements StyleDefinition {
     return this.definitions.map(item => item.name);
   }
 
+  get defaultStyleName() {
+    return 'pastel';
+  }
+
   isStyle(definitionName: string) {
     if (!definitionName) {
       return false;

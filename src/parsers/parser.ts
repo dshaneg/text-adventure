@@ -10,15 +10,15 @@ export abstract class Parser {
 
   public next: Parser;
 
-  parse(sessionToken: string, input: string): { channel: any, command: Command } {
-    const command = this.parseInput(sessionToken, input);
+  parse(input: string): Command {
+    const command = this.parseInput(input);
     if (!command && this.next) {
-      return this.next.parse(sessionToken, input);
+      return this.next.parse(input);
     }
 
     return command;
   }
 
-  abstract parseInput(sessionToken: string, input: string): { channel: any, command: Command };
+  abstract parseInput(input: string): Command;
 }
 

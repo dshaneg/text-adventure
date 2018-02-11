@@ -1,6 +1,7 @@
 'use strict';
 
+export type AddEventCall = (event: any) => void;
+
 export interface Command {
-  topic: string;
-  data: { sessionToken?: string };
+  execute(addEvent: AddEventCall): void;
 }
