@@ -41,12 +41,6 @@ export class TextEngine {
     killSwitch.on('stop-game', () => this.stop());
   }
 
-  private clientEvents = new Array<any>();
-
-  private addEvent(event: any): void {
-    this.clientEvents.push(event);
-  }
-
   start() {
     this.rl.on('line', (line: string) => this.handleInput(line));
 
@@ -65,11 +59,10 @@ export class TextEngine {
     let events: any;
 
     // Parse for any client-side events before passing the input over to the game engine
-    const command = this.parser.parseInput(input);
+    const command = this.parser.parse(input);
     if (command) {
-      this.clientEvents = new Array<any>(); // todo: ugly
-      command.execute(this.addEvent);
-      events = this.clientEvents;
+      events = new Array<any>();
+      command.execute(events);
     } else {
       events = this.gameEngine.handleInput(this.gameState, input).events;
     }

@@ -1,6 +1,6 @@
 'use strict';
 
-import {Command, AddEventCall} from './command';
+import { Command } from './command';
 import { style } from '../style';
 
 /**
@@ -11,8 +11,8 @@ import { style } from '../style';
  */
 export class ListStylesCommand implements Command {
 
-  execute(addEvent: AddEventCall) {
-    addEvent({
+  execute(events: Array<any>) {
+    events.push({
       topic: 'client.style.list-requested',
       message: style.definitionNames.join(', '),
       styles: style.definitionNames
