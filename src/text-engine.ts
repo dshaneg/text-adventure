@@ -4,6 +4,7 @@ import readline = require('readline');
 import { style } from './style';
 import { Parser } from './parsers/parser';
 import { EventHandler } from './event-handler';
+import { KillSwitch } from './kill-switch';
 import { TextAdventureCore as Core } from '@dshaneg/text-adventure-core';
 // const GameEngine = Core.interfaces.GameEngine;
 // const GameState = Core.interfaces.GameState;
@@ -22,6 +23,7 @@ export class TextEngine {
       private parser: Parser,
       private eventHandler: EventHandler,
       private rl: readline.ReadLine,
+      killSwitch: KillSwitch,
       initialStyle: string) {
 
     this.parser = parser;
@@ -33,6 +35,10 @@ export class TextEngine {
         // eat it
       }
     }
+
+    // the injected handler needs to stop the game, but has to execute an event-producing call from the game engine to do so,
+    // so inject the kill switch into the handler and the text-engine so that the handler can trigger the stop on the text engine that owns it
+    killSwitch.on('stop-game', () => this.stop());
   }
 
   private clientEvents = new Array<any>();
@@ -50,12 +56,12 @@ export class TextEngine {
     this.handleEvents(response.events);
   }
 
-  stop() {
+  private stop() {
     const response = this.gameEngine.stopGame(this.gameState);
     this.handleEvents(response.events);
   }
 
-  handleInput(input: string) {
+  private handleInput(input: string) {
     let events: any;
 
     // Parse for any client-side events before passing the input over to the game engine
@@ -71,7 +77,7 @@ export class TextEngine {
     this.handleEvents(events);
   }
 
-  handleEvents(events: Array<any>): void {
+  private handleEvents(events: Array<any>): void {
     events.forEach((event: any) => {
       this.eventHandler.handle(this.gameState, event);
     });

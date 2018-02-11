@@ -15,6 +15,7 @@ import { ApplyStyleParser } from './parsers/apply-style-parser';
 
 import { style } from './style';
 
+import { KillSwitch } from './kill-switch';
 import { TextEngine } from './text-engine';
 import { TextAdventureCore as Core } from '@dshaneg/text-adventure-core';
 
@@ -48,11 +49,13 @@ const rl = readline.createInterface({
   output: process.stdout
 });
 
-let eventHandler: EventHandler = new GameEventHandler(gameEngine, rl);
+const killSwitch = new KillSwitch();
+
+let eventHandler: EventHandler = new GameEventHandler(gameEngine, rl, killSwitch);
 if (opt.options.debug) {
   eventHandler = new DebugEventLogger(eventHandler);
 }
 
-const textEngine = new TextEngine(gameEngine, gameState, parserHead, eventHandler, rl, initialStyle);
+const textEngine = new TextEngine(gameEngine, gameState, parserHead, eventHandler, rl, killSwitch, initialStyle);
 
 textEngine.start();

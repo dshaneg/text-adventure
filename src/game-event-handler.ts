@@ -2,11 +2,16 @@
 
 import readline = require('readline');
 import { EventHandler } from './event-handler';
+import { KillSwitch } from './kill-switch';
 import { style } from './style';
 
 export class GameEventHandler implements EventHandler {
-  constructor(private gameEngine: any, private rl: readline.ReadLine, private stopGame: () => void) {
-  this.started = false;
+  constructor(
+    private gameEngine: any,
+    private rl: readline.ReadLine,
+    private killSwitch: KillSwitch) {
+
+    this.started = false;
   }
 
   private started: boolean;
@@ -46,7 +51,7 @@ export class GameEventHandler implements EventHandler {
       {
         this.rl.question(style.gamemaster('\nAre you sure you want to leave the game? [Y/n] '), (answer) => {
           if (answer.match(/^y$|^yes$|^$/i)) {
-            this.gameEngine.stopGame(gameState);
+            this.killSwitch.execute();
           } else {
             this.rl.prompt();
           }
