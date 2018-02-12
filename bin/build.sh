@@ -14,5 +14,3 @@ yarn lint
 marquee "Unit Test Step"
 yarn test
 
-# marquee "Package Step"
-# yarn pack

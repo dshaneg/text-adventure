@@ -42,7 +42,7 @@ const initialStyle = style.isStyle(opt.options.style) ?
   style.defaultStyleName;
 
 const gameState = Core.createGameManager(gameSessionRepository).createGame();
-const gameEngine = Core.createGameEngine(gameDefinitionRepository, mapNodeRepository, itemRepository, true);
+const gameEngine = Core.createGameEngine(gameDefinitionRepository, mapNodeRepository, itemRepository, opt.options.dev);
 
 const rl = readline.createInterface({
   input: process.stdin,

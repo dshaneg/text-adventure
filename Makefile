@@ -1,9 +1,12 @@
-.PHONY: build publish \
+.PHONY: build package publish \
 		set-executable deps \
 		clean deep-clean
 
 build: set-executable
 	bin/build.sh
+
+package: set-executable
+	bin/package.sh
 
 publish: set-executable
 	bin/publish.sh
