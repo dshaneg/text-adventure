@@ -28,7 +28,7 @@ jobs:
       - run: make build
 
       - store_artifacts:
-          path: target/dist
+          path: dist
 
 workflows:
   version: 2
