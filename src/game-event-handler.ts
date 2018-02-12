@@ -28,27 +28,23 @@ export class GameEventHandler implements EventHandler {
       case 'player.inventory.list-requested':
       case 'game.help-requested':
       case 'client.style.list-requested':
-      case 'parser.failed':
-      {
+      case 'parser.failed': {
           this.handleGameResponse(event.message, style.gamemaster);
           break;
-        }
+      }
       case 'player.inventory.added':
-      case 'player.inventory.item-equipped':
-        {
+      case 'player.inventory.item-equipped': {
           this.handleGameResponse(event.message);
           break;
-        }
+      }
       case 'client.style.applied':
         this._setPrompt(gameState);
         this.handleGameResponse(event.message, style.gamemaster);
-      case 'error':
-      {
+      case 'error': {
         this.handleGameResponse(event.message, style.error);
         break;
       }
-      case 'game.stop-requested':
-      {
+      case 'game.stop-requested': {
         this.rl.question(style.gamemaster('\nAre you sure you want to leave the game? [Y/n] '), (answer) => {
           if (answer.match(/^y$|^yes$|^$/i)) {
             this.killSwitch.execute();
@@ -58,18 +54,16 @@ export class GameEventHandler implements EventHandler {
         });
         break;
       }
+      case 'item.conjured': {
+        console.log((style.gamemaster(`\n${event.message}`)));
+        break;
+      }
       case 'game.stopped': {
         console.log((style.gamemaster(`\n${event.message}`)));
         this.rl.close();
         break;
       }
-      case 'item.conjured':
-      {
-        console.log(style.gamemaster('\n${response.message}'));
-        break;
-      }
-      case 'game.started':
-      {
+      case 'game.started': {
         console.log(style.banner(event.banner));
         console.log();
         console.log(style.normal(event.message));
@@ -77,8 +71,7 @@ export class GameEventHandler implements EventHandler {
         this.started = true;
         break;
       }
-      default:
-      {
+      default: {
         this.handleGameResponse(`${event.topic} not handled.`, style.error);
       }
     }

@@ -42,16 +42,12 @@ export class DebugEventLogger implements EventHandler {
         log(`${event.topic} => ${formatDebugItem(event.item, event.count)} to ${event.target}`);
         break;
 
-      case 'error':
-        log(`${event.topic} => ${event}`);
-        break;
-
       case 'player.inventory.list-requested':
         log(`${event.topic} => ${event.items.length} stacks in inventory`);
         break;
 
       default:
-        log(`${event.topic} => just happened`);
+        log(`${event.topic} => ${JSON.stringify(event)}`);
     }
 
     this.eventHandler.handle(gameState, event);
