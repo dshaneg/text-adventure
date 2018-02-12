@@ -1,6 +1,5 @@
 'use strict';
 
 export interface Command {
-  topic: string;
-  data: { sessionToken?: string };
+  execute(events: Array<any>): void;
 }

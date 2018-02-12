@@ -1,8 +1,7 @@
 'use strict';
 
-import {Command} from './command';
-
-const topic = 'style.list';
+import { Command } from './command';
+import { style } from '../style';
 
 /**
  * Class representing a command instructing the client to list the available color palettes.
@@ -11,23 +10,13 @@ const topic = 'style.list';
  * @class ListStylesCommand
  */
 export class ListStylesCommand implements Command {
-  /**
-   * Creates an instance of ListStylesCommand.
-   *
-   * @param {string} sessionToken
-   *
-   * @memberOf ListStylesCommand
-   */
-  constructor(sessionToken: string) {
-    this.topic = topic;
-    this.data = { sessionToken };
-  }
 
-  public topic: string;
-  public data: { sessionToken: string };
-
-  static get topic() {
-    return topic;
+  execute(events: Array<any>) {
+    events.push({
+      topic: 'client.style.list-requested',
+      message: style.definitionNames.join(', '),
+      styles: style.definitionNames
+    });
   }
 }
 

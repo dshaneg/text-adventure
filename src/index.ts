@@ -2,10 +2,28 @@
 
 const getopt = require('node-getopt');
 
-import { TextEngine } from './text-engine';
+import readline = require('readline');
 
+// event handlers
+import { EventHandler } from './event-handler';
+import { GameEventHandler } from './game-event-handler';
 import { DebugEventLogger } from './debug-event-logger';
+
+// client-side parsers
+import { ListStylesParser } from './parsers/list-styles-parser';
+import { ApplyStyleParser } from './parsers/apply-style-parser';
+
 import { style } from './style';
+
+import { KillSwitch } from './kill-switch';
+import { TextEngine } from './text-engine';
+import { TextAdventureCore as Core } from '@dshaneg/text-adventure-core';
+
+// repositories
+const gameDefinitionRepository = new Core.defaultImplementations.GameDefinitionRepository();
+const mapNodeRepository = new Core.defaultImplementations.MapNodeRepository();
+const itemRepository = new Core.defaultImplementations.ItemRepository();
+const gameSessionRepository = new Core.defaultImplementations.GameSessionRepositoryMem();
 
 const opt = getopt.create([
   ['d', 'debug', 'turn on debug output'],
@@ -15,45 +33,29 @@ const opt = getopt.create([
 ]).bindHelp()
   .parseSystem();
 
-if (opt.options.debug) {
-  DebugEventLogger.subscribe();
-}
-
-// command parsers
-import { MoveParser } from './parsers/move-parser';
-import { ListInventoryParser } from './parsers/list-inventory-parser';
-import { ExitParser } from './parsers/exit-parser';
-import { HelpParser } from './parsers/help-parser';
-import { ListStylesParser } from './parsers/list-styles-parser';
-import { ApplyStyleParser } from './parsers/apply-style-parser';
-
-// dev-mode (cheat) command parsers
-import { TeleportParser } from './parsers/teleport-parser';
-import { ConjureItemParser } from './parsers/conjure-item-parser';
-
-const parser = new MoveParser();
-const chainTail = parser
-  .setNext(new ListInventoryParser())
-  .setNext(new ExitParser())
-  .setNext(new HelpParser())
-  .setNext(new ListStylesParser())
+const parserHead = new ListStylesParser();
+const parserTail = parserHead
   .setNext(new ApplyStyleParser());
-
-if (opt.options.dev) {
-  chainTail
-    .setNext(new TeleportParser())
-    .setNext(new ConjureItemParser());
-}
-
-import { GameEngine } from './game-engine';
-
-const gameEngine = new GameEngine();
-gameEngine.initialize();
 
 const initialStyle = style.isStyle(opt.options.style) ?
   opt.options.style :
-  gameEngine.style;
+  style.defaultStyleName;
 
-const textEngine = new TextEngine(parser, initialStyle);
+const gameState = Core.createGameManager(gameSessionRepository).createGame();
+const gameEngine = Core.createGameEngine(gameDefinitionRepository, mapNodeRepository, itemRepository, true);
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
+
+const killSwitch = new KillSwitch();
+
+let eventHandler: EventHandler = new GameEventHandler(gameEngine, rl, killSwitch);
+if (opt.options.debug) {
+  eventHandler = new DebugEventLogger(eventHandler);
+}
+
+const textEngine = new TextEngine(gameEngine, gameState, parserHead, eventHandler, rl, killSwitch, initialStyle);
 
 textEngine.start();
