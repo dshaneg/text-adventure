@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@dshaneg/text-adventure-core@^0.1.8":
-  version "0.1.8"
-  resolved "https://registry.yarnpkg.com/@dshaneg/text-adventure-core/-/text-adventure-core-0.1.8.tgz#c869fb8b99efddcd4291e95c1a72d7cb2ef2affb"
+"@dshaneg/text-adventure-core@^0.1.9":
+  version "0.1.9"
+  resolved "https://registry.yarnpkg.com/@dshaneg/text-adventure-core/-/text-adventure-core-0.1.9.tgz#2b7ad20428f65c33e0211ec29e9c709aa657bfbf"
   dependencies:
     "@types/uuid" "^3.4.3"
     number-to-words "^1.2.3"
@@ -16,9 +16,17 @@
   version "2.0.30"
   resolved "https://registry.yarnpkg.com/@types/ansi-styles/-/ansi-styles-2.0.30.tgz#9a645299020a224afc6a8cd055195850b3c2af85"
 
+"@types/chai@^4.1.2":
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/@types/chai/-/chai-4.1.2.tgz#f1af664769cfb50af805431c407425ed619daa21"
+
 "@types/chalk@^0.4.31":
   version "0.4.31"
   resolved "https://registry.yarnpkg.com/@types/chalk/-/chalk-0.4.31.tgz#a31d74241a6b1edbb973cf36d97a2896834a51f9"
+
+"@types/mocha@^2.2.48":
+  version "2.2.48"
+  resolved "https://registry.yarnpkg.com/@types/mocha/-/mocha-2.2.48.tgz#3523b126a0b049482e1c3c11877460f76622ffab"
 
 "@types/node-uuid@0.0.28":
   version "0.0.28"

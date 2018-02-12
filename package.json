@@ -1,10 +1,10 @@
 {
   "name": "text-adventure",
   "version": "0.1.0",
-  "description": "an engine for a text-based adventure game",
-  "main": "lib/index.js",
+  "description": "the command line interface front end for a text-based adventure game",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha -r ts-node/register src/**/*.spec.ts",
     "start": "ts-node src/index.ts --debug --dev",
     "lint": "tslint ./src/**/*.ts"
   },
@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/dshaneg/text-adventure#readme",
   "dependencies": {
-    "@dshaneg/text-adventure-core": "^0.1.8",
+    "@dshaneg/text-adventure-core": "^0.1.9",
     "ansi-styles": "^2.2.1",
     "chalk": "^1.1.3",
     "node-cleanup": "^1.0.1",
@@ -27,7 +27,9 @@
   },
   "devDependencies": {
     "@types/ansi-styles": "^2.0.30",
+    "@types/chai": "^4.1.2",
     "@types/chalk": "^0.4.31",
+    "@types/mocha": "^2.2.48",
     "@types/node": "^6.0.46",
     "@types/node-uuid": "0.0.28",
     "@types/pluralize": "0.0.27",

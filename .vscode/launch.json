@@ -4,7 +4,7 @@
       "name": "Launch",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceRoot}\\lib\\index.js",
+      "program": "${workspaceRoot}\\src\\index.ts",
       "stopOnEntry": false,
       "args": ["--dev", "--debug"],
       "cwd": "${workspaceRoot}",
@@ -18,7 +18,7 @@
       },
       "console": "integratedTerminal",
       "sourceMaps": true,
-      "outFiles": [ "${workspaceRoot}\\lib\\**\\*.*"]
+      "outFiles": [ "${workspaceRoot}\\dist\\**\\*.*"]
     },
     {
       "name": "Attach",
