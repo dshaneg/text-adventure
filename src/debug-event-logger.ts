@@ -11,7 +11,9 @@ export class DebugEventLogger implements EventHandler {
   handle(gameState: any, event: any): void {
     switch (event.topic) {
       case 'game.created':
+      case 'game.starting':
       case 'game.started':
+      case 'player.location.teleporting':
       case 'game.help-requested':
       case 'game.stop-requested':
       case 'game.stopped':
@@ -20,10 +22,6 @@ export class DebugEventLogger implements EventHandler {
 
       case 'player.location.moved':
         log(`${event.topic} => ${event.direction} from ${formatNode(event.previousNode)} to ${formatNode(event.currentNode)}`);
-        break;
-
-      case 'player.location.teleported':
-        log(`${event.topic} => from ${formatNode(event.previousNode)} to ${formatNode(event.currentNode)}`);
         break;
 
       case 'player.location.move-blocked':
