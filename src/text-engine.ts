@@ -38,7 +38,7 @@ export class TextEngine {
 
     // the injected handler needs to stop the game, but has to execute an event-producing call from the game engine to do so,
     // so inject the kill switch into the handler and the text-engine so that the handler can trigger the stop on the text engine that owns it
-    killSwitch.on('stop-game', () => this.stop());
+    killSwitch.on('stop', () => this.requestStop());
   }
 
   start() {
@@ -50,9 +50,20 @@ export class TextEngine {
     this.handleEvents(response.events);
   }
 
+  private requestStop() {
+    this.rl.question(style.gamemaster('\nAre you sure you want to leave the game? [Y/n] '), (answer) => {
+      if (answer.match(/^y$|^yes$|^$/i)) {
+        this.stop();
+      } else {
+        this.rl.prompt();
+      }
+    });
+  }
+
   private stop() {
     const response = this.gameEngine.stopGame(this.gameState);
     this.handleEvents(response.events);
+    this.rl.close();
   }
 
   private handleInput(input: string) {
@@ -74,6 +85,8 @@ export class TextEngine {
     events.forEach((event: any) => {
       this.eventHandler.handle(this.gameState, event);
     });
+
+    this.rl.prompt();
   }
 }
 

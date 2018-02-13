@@ -28,51 +28,37 @@ export class GameEventHandler implements EventHandler {
       case 'player.inventory.list-requested':
       case 'game.help-requested':
       case 'client.style.list-requested':
+      case 'item.conjured':
+      case 'game.stopped':
       case 'parser.failed': {
-          this.handleGameResponse(event.message, style.gamemaster);
-          break;
+        this.handleGameResponse(event.message, style.gamemaster);
+        break;
       }
-      case 'player.inventory.added':
-      case 'player.inventory.item-equipped': {
-          this.handleGameResponse(event.message);
-          break;
-      }
-      case 'client.style.applied':
+      case 'client.style.applied': {
         this._setPrompt(gameState);
         this.handleGameResponse(event.message, style.gamemaster);
+        break;
+      }
       case 'error': {
         this.handleGameResponse(event.message, style.error);
         break;
       }
       case 'game.stop-requested': {
-        this.rl.question(style.gamemaster('\nAre you sure you want to leave the game? [Y/n] '), (answer) => {
-          if (answer.match(/^y$|^yes$|^$/i)) {
-            this.killSwitch.execute();
-          } else {
-            this.rl.prompt();
-          }
-        });
-        break;
-      }
-      case 'item.conjured': {
-        console.log((style.gamemaster(`\n${event.message}`)));
-        break;
-      }
-      case 'game.stopped': {
-        console.log((style.gamemaster(`\n${event.message}`)));
-        this.rl.close();
+        this.killSwitch.execute();
         break;
       }
       case 'game.started': {
-        console.log(style.banner(event.banner));
-        console.log();
-        console.log(style.normal(event.message));
-
         this.started = true;
+        this.handleGameResponse(event.banner, style.banner);
+        this.handleGameResponse(event.message);
         break;
       }
       default: {
-        this.handleGameResponse(`${event.topic} not handled.`, style.error);
+        if (event.message) {
+          this.handleGameResponse(event.message);
+        } else {
+          this.handleGameResponse(`${event.topic} not handled.`, style.error);
+        }
       }
     }
   }
@@ -84,8 +70,6 @@ export class GameEventHandler implements EventHandler {
 
     const currentStyle = textStyle || style.normal;
     console.log(currentStyle(`\n${highlightHints(responseText)}`));
-
-    this.rl.prompt();
   }
 
   _setPrompt(gameState: any) {
