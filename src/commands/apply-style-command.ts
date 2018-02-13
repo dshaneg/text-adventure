@@ -1,6 +1,7 @@
 'use strict';
 
 import { Command } from './command';
+import { Voice } from '@dshaneg/text-adventure-core';
 import { style } from '../style';
 
 /**
@@ -18,10 +19,15 @@ export class ApplyStyleCommand implements Command {
       events.push({
         topic: 'client.style.applied',
         message: 'As you command.',
+        voice: Voice.gamemaster,
         styleName: this.styleName
       });
     } catch (error) {
-      events.push({ topic: 'error', message: `Could not find a style named '${this.styleName}'.` });
+      events.push({
+        topic: 'error',
+        message: `Could not find a style named '${this.styleName}'.`,
+        voice: Voice.warden
+      });
     }
   }
 }

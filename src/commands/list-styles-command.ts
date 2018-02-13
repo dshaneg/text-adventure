@@ -1,6 +1,7 @@
 'use strict';
 
 import { Command } from './command';
+import { Voice } from '@dshaneg/text-adventure-core';
 import { style } from '../style';
 
 /**
@@ -15,6 +16,7 @@ export class ListStylesCommand implements Command {
     events.push({
       topic: 'client.style.list-requested',
       message: style.definitionNames.join(', '),
+      voice: Voice.gamemaster,
       styles: style.definitionNames
     });
   }
