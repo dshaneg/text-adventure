@@ -1,6 +1,6 @@
 {
   "name": "text-adventure",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "the command line interface front end for a text-based adventure game",
   "main": "dist/index.js",
   "scripts": {
