@@ -1,6 +1,7 @@
 'use strict';
 
 import readline = require('readline');
+import { Voice } from '@dshaneg/text-adventure-core';
 import { EventHandler } from './event-handler';
 import { KillSwitch } from './kill-switch';
 import { style } from './style';
@@ -10,90 +11,33 @@ export class GameEventHandler implements EventHandler {
     private gameEngine: any,
     private rl: readline.ReadLine,
     private killSwitch: KillSwitch) {
-
-    this.started = false;
   }
-
-  private started: boolean;
 
   handle(gameState: any, event: any) {
     switch (event.topic) {
       case 'player.location.moved':
-      case 'player.location.teleported': {
-        this._setPrompt(gameState);
-        this.handleGameResponse(event.currentNode.description);
-        break;
-      }
-      case 'player.location.move-blocked':
-      case 'player.inventory.list-requested':
-      case 'game.help-requested':
-      case 'client.style.list-requested':
-      case 'parser.failed': {
-          this.handleGameResponse(event.message, style.gamemaster);
-          break;
-      }
-      case 'player.inventory.added':
-      case 'player.inventory.item-equipped': {
-          this.handleGameResponse(event.message);
-          break;
-      }
-      case 'client.style.applied':
-        this._setPrompt(gameState);
-        this.handleGameResponse(event.message, style.gamemaster);
-      case 'error': {
-        this.handleGameResponse(event.message, style.error);
+      case 'client.style.applied': {
+          this.setPrompt(gameState);
         break;
       }
       case 'game.stop-requested': {
-        this.rl.question(style.gamemaster('\nAre you sure you want to leave the game? [Y/n] '), (answer) => {
-          if (answer.match(/^y$|^yes$|^$/i)) {
-            this.killSwitch.execute();
-          } else {
-            this.rl.prompt();
-          }
-        });
+        this.killSwitch.execute();
         break;
       }
-      case 'item.conjured': {
-        console.log((style.gamemaster(`\n${event.message}`)));
-        break;
-      }
-      case 'game.stopped': {
-        console.log((style.gamemaster(`\n${event.message}`)));
-        this.rl.close();
-        break;
-      }
-      case 'game.started': {
-        console.log(style.banner(event.banner));
-        console.log();
-        console.log(style.normal(event.message));
+    }
 
-        this.started = true;
-        break;
-      }
-      default: {
-        this.handleGameResponse(`${event.topic} not handled.`, style.error);
-      }
+    if (event.message && event.voice !== Voice.mute) {
+      const currentStyle = getStyle(event.voice);
+      console.log(currentStyle(`\n${highlightHints(event.message)}`));
     }
   }
 
-  handleGameResponse(responseText: string, textStyle?: any) {
-    if (!this.started) {
-      return;
-    }
-
-    const currentStyle = textStyle || style.normal;
-    console.log(currentStyle(`\n${highlightHints(responseText)}`));
-
-    this.rl.prompt();
-  }
-
-  _setPrompt(gameState: any) {
+  private setPrompt(gameState: any) {
     const current = gameState.player.currentNode;
     this.rl.setPrompt(style.prompt(`\n${current.name} [${this.buildActionList(gameState)}] > `) + style.defaultOpen);
   }
 
-  buildActionList(gameState: any) {
+  private buildActionList(gameState: any) {
     const directionStrings: string[] = [];
 
     const directions = this.gameEngine.getAvailableDirections(gameState);
@@ -112,6 +56,25 @@ export class GameEventHandler implements EventHandler {
     }
 
     return directionStrings.join(style.prompt(','));
+  }
+}
+
+function getStyle(voice: Voice) {
+  if (!voice) {
+    return style.normal;
+  }
+
+  switch (voice) {
+    case Voice.bard:
+      return style.normal;
+    case Voice.gamemaster:
+      return style.gamemaster;
+    case Voice.warden:
+      return style.error;
+    case Voice.herald:
+      return style.banner;
+    default:
+      return style.normal;
   }
 }
 
