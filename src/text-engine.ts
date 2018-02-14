@@ -5,10 +5,7 @@ import { style } from './style';
 import { Parser } from './parsers/parser';
 import { EventHandler } from './event-handler';
 import { KillSwitch } from './kill-switch';
-import { TextAdventureCore as Core } from '@dshaneg/text-adventure-core';
-// const GameEngine = Core.interfaces.GameEngine;
-// const GameState = Core.interfaces.GameState;
-
+import { GameEngine, GameState } from '@dshaneg/text-adventure-core';
 const nodeCleanup = require('node-cleanup');
 
 // makes sure that wonky colors don't hang around after the program terminates
@@ -18,13 +15,13 @@ const CLEAR_SCREEN_CODE = '\x1Bc';
 
 export class TextEngine {
   constructor(
-      private gameEngine: any, // why isn't ts cooperating?
-      private gameState: any,
-      private parser: Parser,
-      private eventHandler: EventHandler,
-      private rl: readline.ReadLine,
-      killSwitch: KillSwitch,
-      initialStyle: string) {
+    private gameEngine: GameEngine, // why isn't ts cooperating?
+    private gameState: GameState,
+    private parser: Parser,
+    private eventHandler: EventHandler,
+    private rl: readline.ReadLine,
+    killSwitch: KillSwitch,
+    initialStyle: string) {
 
     this.parser = parser;
 
@@ -58,7 +55,7 @@ export class TextEngine {
         return;
       }
 
-        this.rl.prompt();
+      this.rl.prompt();
     });
   }
 
