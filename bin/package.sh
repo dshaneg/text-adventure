@@ -7,5 +7,6 @@ source bin/shared.sh
 marquee "Package Step"
 yarn install --prod
 
-# TODO: do versioning by peeling out the verison from package.json
-docker build -t dshaneg/text-adventure:0.1.0 .
+package_version=$(node -p -e "require('./package.json').version")
+
+docker build -t dshaneg/text-adventure:$package_version -t dshaneg/text-adventure:latest .
