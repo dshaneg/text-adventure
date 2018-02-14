@@ -48,15 +48,17 @@ export class TextEngine {
 
     const response = this.gameEngine.startGame(this.gameState);
     this.handleEvents(response.events);
+    this.rl.prompt();
   }
 
   private requestStop() {
     this.rl.question(style.gamemaster('\nAre you sure you want to leave the game? [Y/n] '), (answer) => {
       if (answer.match(/^y$|^yes$|^$/i)) {
         this.stop();
-      } else {
-        this.rl.prompt();
+        return;
       }
+
+        this.rl.prompt();
     });
   }
 
@@ -79,14 +81,13 @@ export class TextEngine {
     }
 
     this.handleEvents(events);
+    this.rl.prompt();
   }
 
   private handleEvents(events: Array<any>): void {
     events.forEach((event: any) => {
       this.eventHandler.handle(this.gameState, event);
     });
-
-    this.rl.prompt();
   }
 }
 
