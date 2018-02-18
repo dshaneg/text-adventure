@@ -1,7 +1,6 @@
 'use strict';
 
-import { Command } from './command';
-import { Voice } from '@dshaneg/text-adventure-core';
+import { Command, EventPublisher, GameState, Voice } from '@dshaneg/text-adventure-core';
 import { style } from '../style';
 
 /**
@@ -12,8 +11,8 @@ import { style } from '../style';
  */
 export class ListStylesCommand implements Command {
 
-  execute(events: Array<any>) {
-    events.push({
+  execute(gameState: GameState, publisher: EventPublisher) {
+    publisher.publish({
       topic: 'client.style.list-requested',
       message: style.definitionNames.join(', '),
       voice: Voice.gamemaster,

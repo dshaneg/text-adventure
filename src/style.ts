@@ -21,7 +21,7 @@ const ansiStyles = require('ansi-styles');
 class Style implements StyleDefinition {
   constructor(definitions: any[]) {
     this.definitions = definitions;
-    this._set(definitions[0]); // first one as default
+    this.set(this.defaultStyleName);
   }
 
   private definitions: any[];

@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@dshaneg/text-adventure-core@^0.1.11":
-  version "0.1.11"
-  resolved "https://gme.jfrog.io/gme/api/npm/npm/@dshaneg/text-adventure-core/-/text-adventure-core-0.1.11.tgz#fcbb0739feb7e4980a63909bd64beb6e51b2f464"
+"@dshaneg/text-adventure-core@^0.3.3":
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/@dshaneg/text-adventure-core/-/text-adventure-core-0.3.3.tgz#789fc1898d0c554040951df21b2fabd03db8f993"
   dependencies:
     "@types/uuid" "^3.4.3"
     number-to-words "^1.2.3"

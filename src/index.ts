@@ -23,7 +23,7 @@ import { TextAdventureCore as Core } from '@dshaneg/text-adventure-core';
 const gameDefinitionRepository = new Core.defaultImplementations.GameDefinitionRepository();
 const mapNodeRepository = new Core.defaultImplementations.MapNodeRepository();
 const itemRepository = new Core.defaultImplementations.ItemRepository();
-const gameSessionRepository = new Core.defaultImplementations.GameSessionRepositoryMem();
+const gameSessionRepository = new Core.defaultImplementations.GameSessionRepository();
 
 const opt = getopt.create([
   ['d', 'debug', 'turn on debug output'],
@@ -33,16 +33,15 @@ const opt = getopt.create([
 ]).bindHelp()
   .parseSystem();
 
-const parserHead = new ListStylesParser();
-const parserTail = parserHead
-  .setNext(new ApplyStyleParser());
+const parserChain = new ListStylesParser();
+parserChain.setNext(new ApplyStyleParser());
 
-const initialStyle = style.isStyle(opt.options.style) ?
-  opt.options.style :
-  style.defaultStyleName;
+if (style.isStyle(opt.options.style)) {
+  style.set(opt.options.style);
+}
 
 const gameState = Core.createGameManager(gameSessionRepository).createGame();
-const gameEngine = Core.createGameEngine(gameDefinitionRepository, mapNodeRepository, itemRepository, opt.options.dev);
+const gameEngine = Core.createGameEngine(gameDefinitionRepository, mapNodeRepository, itemRepository, parserChain, opt.options.dev);
 
 const rl = readline.createInterface({
   input: process.stdin,
@@ -56,6 +55,6 @@ if (opt.options.debug) {
   eventHandler = new DebugEventLogger(eventHandler);
 }
 
-const textEngine = new TextEngine(gameEngine, gameState, parserHead, eventHandler, rl, killSwitch, initialStyle);
+const textEngine = new TextEngine(gameEngine, gameState, eventHandler, rl, killSwitch);
 
 textEngine.start();

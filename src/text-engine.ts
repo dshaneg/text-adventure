@@ -2,7 +2,6 @@
 
 import readline = require('readline');
 import { style } from './style';
-import { Parser } from './parsers/parser';
 import { EventHandler } from './event-handler';
 import { KillSwitch } from './kill-switch';
 import { GameEngine, GameState } from '@dshaneg/text-adventure-core';
@@ -17,21 +16,9 @@ export class TextEngine {
   constructor(
     private gameEngine: GameEngine, // why isn't ts cooperating?
     private gameState: GameState,
-    private parser: Parser,
     private eventHandler: EventHandler,
     private rl: readline.ReadLine,
-    killSwitch: KillSwitch,
-    initialStyle: string) {
-
-    this.parser = parser;
-
-    if (initialStyle) {
-      try {
-        style.set(initialStyle);
-      } catch (error) {
-        // eat it
-      }
-    }
+    killSwitch: KillSwitch) {
 
     // the injected handler needs to stop the game, but has to execute an event-producing call from the game engine to do so,
     // so inject the kill switch into the handler and the text-engine so that the handler can trigger the stop on the text engine that owns it
@@ -40,11 +27,11 @@ export class TextEngine {
 
   start() {
     this.rl.on('line', (line: string) => this.handleInput(line));
-
     console.log(CLEAR_SCREEN_CODE);
 
     const response = this.gameEngine.startGame(this.gameState);
     this.handleEvents(response.events);
+
     this.rl.prompt();
   }
 
@@ -62,22 +49,14 @@ export class TextEngine {
   private stop() {
     const response = this.gameEngine.stopGame(this.gameState);
     this.handleEvents(response.events);
+
     this.rl.close();
   }
 
   private handleInput(input: string) {
-    let events: any;
+    const response = this.gameEngine.handleInput(this.gameState, input);
+    this.handleEvents(response.events);
 
-    // Parse for any client-side events before passing the input over to the game engine
-    const command = this.parser.parse(input);
-    if (command) {
-      events = new Array<any>();
-      command.execute(events);
-    } else {
-      events = this.gameEngine.handleInput(this.gameState, input).events;
-    }
-
-    this.handleEvents(events);
     this.rl.prompt();
   }
 

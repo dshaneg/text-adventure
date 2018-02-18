@@ -1,7 +1,7 @@
 'use strict';
 
-import {Parser} from './parser';
-import {ApplyStyleCommand} from '../commands/apply-style-command';
+import { Parser } from '@dshaneg/text-adventure-core';
+import { ApplyStyleCommand } from '../commands/apply-style-command';
 
 const verbSynonyms = ['apply', 'set'];
 const nounSynonyms = ['style'];

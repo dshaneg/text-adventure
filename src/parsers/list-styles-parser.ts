@@ -1,6 +1,6 @@
 'use strict';
 
-import { Parser } from './parser';
+import { Parser } from '@dshaneg/text-adventure-core';
 import { ListStylesCommand } from '../commands/list-styles-command';
 
 const verbSynonyms = ['list', 'l'];

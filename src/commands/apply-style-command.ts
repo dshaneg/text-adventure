@@ -1,7 +1,6 @@
 'use strict';
 
-import { Command } from './command';
-import { Voice } from '@dshaneg/text-adventure-core';
+import { Command, EventPublisher, GameState, Voice } from '@dshaneg/text-adventure-core';
 import { style } from '../style';
 
 /**
@@ -12,18 +11,17 @@ export class ApplyStyleCommand implements Command {
   constructor(private styleName: string) {
   }
 
-  public data: { sessionToken: string, styleName: string };
-  execute(events: Array<any>) {
+  execute(gameState: GameState, publisher: EventPublisher) {
     try {
       style.set(this.styleName);
-      events.push({
+      publisher.publish({
         topic: 'client.style.applied',
         message: 'As you command.',
         voice: Voice.gamemaster,
         styleName: this.styleName
       });
     } catch (error) {
-      events.push({
+      publisher.publish({
         topic: 'error',
         message: `Could not find a style named '${this.styleName}'.`,
         voice: Voice.warden
